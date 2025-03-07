@@ -1,0 +1,21 @@
+/* Modal Window Footer */
+
+.search-modal__footer {
+   display: flex;
+   height: 100%;
+   justify-content: flex-end;
+   border-top: var(--bd-search-modal-footer-border-top);
+   padding: var(--search-modal-padding);
+}
+.search-modal__footer .credits {
+   display: block;
+}
+.search-modal__footer .credits a {
+   display: flex;
+   align-items: center;
+   gap: 5px;
+}
+.search-modal__footer .credits svg {
+   flex-shrink: 0;
+   height: 16px;
+}

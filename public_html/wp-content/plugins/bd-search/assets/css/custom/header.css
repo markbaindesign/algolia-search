@@ -1,0 +1,22 @@
+/* Modal Window Header */
+
+.search-modal__header {
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   border-bottom: var(--bd-search-modal-header-border-bottom);
+   padding: var(--search-modal-padding);
+}
+
+.search-modal__header h2 {
+   font-size: 20px;
+   margin-block: 0;
+   margin-bottom: 10px;
+}
+
+.search-modal__header .search-modal__close-button {
+   position: absolute;
+   top: var(--search-modal-padding);
+   right: var(--search-modal-padding);
+}

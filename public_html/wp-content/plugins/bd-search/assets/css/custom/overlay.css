@@ -1,0 +1,20 @@
+/* Modal Window - Overlay */
+
+.search-modal-overlay {
+   visibility: hidden;
+   opacity: 0;
+   content: '';
+   position: fixed;
+   display: block;
+   z-index: var(--bd-search-modal-overlay-z-index);;
+   top: 0;
+   left: 0;
+   height: 100%; 
+   width: 100%;
+   background-color: var(--bd-search-modal-overlay-background-color);
+}
+
+.jsModalSearchOpen .search-modal-overlay {
+   visibility: visible;
+   opacity: 1;
+}
