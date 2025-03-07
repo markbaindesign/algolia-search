@@ -32,6 +32,11 @@ if (!function_exists('bd324_convert_post_data')):
          $post
       );
 
+      // Add ID if record doesn't already have one.
+      if (!isset($record['objectID'])) {
+         $record['objectID'] = implode('#', [$post->post_type, $post->ID]);
+      }
+
       /**
        * Add rows to the $record array depending on the post type via filter.
        * See `add-records/add-{{$post_type}}.php` for filters.
@@ -39,10 +44,12 @@ if (!function_exists('bd324_convert_post_data')):
        * @return  array    $record
        */
       $filter_name = str_replace('-', '_', $post_type) . '_to_record';
-      $record = (array) apply_filters(
+
+      // Apply filter
+      $record = apply_filters(
          $filter_name,
-         $post,
-         $record
+         $record,
+         $post
       );
 
       /* Check record size does not exceed Algolia Max Record Size */
@@ -50,6 +57,7 @@ if (!function_exists('bd324_convert_post_data')):
       if ($sizeOk === false) {
          return;
       }
+
       return $record;
    }
 endif;

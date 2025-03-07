@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 
 // Defaults
 // Add new records in custom plugin!
-require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/add-page.php';
+
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/add-records.php';
 // require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/add-tax.php';
 // require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/add-term.php';

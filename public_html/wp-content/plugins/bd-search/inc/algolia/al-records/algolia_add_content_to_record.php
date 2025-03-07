@@ -12,7 +12,6 @@ function algolia_add_content_to_record($record, WP_Post $post)
    $content = get_the_content('', '', $post);
    // Removes Divi shortcodes
    $content = preg_replace('/\[\/?et_pb.*?\]/', '', $content);
-   // error_log(print_r($content, true));
    $record['content'] = wp_strip_all_tags(strip_shortcodes($content));
    return $record;
 }

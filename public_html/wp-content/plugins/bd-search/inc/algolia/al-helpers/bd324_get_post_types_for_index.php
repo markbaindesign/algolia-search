@@ -26,7 +26,6 @@ if(!function_exists('bd324_get_post_types_for_index')):
          'bd324_filter_get_post_types_for_index',
          get_post_types($args, $output)
       );
-      error_log(print_r($post_types, true));
 
       return $post_types;
    }

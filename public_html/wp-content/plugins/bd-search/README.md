@@ -2,11 +2,6 @@
 
 ## v2.0.0
 
-## Run Composer
-
-* Run Composer to install `/vendor` directory. `composer install`
-* This should be done in the Vagrant shell environment.
-
 ## Algolia keys
 
 Add all keys to `wp-config.php` as follows:
@@ -58,7 +53,8 @@ if (defined('WP_ENVIRONMENT_TYPE')) {
       define('ALGOLIA_API_KEY', 'XXXX');
 
       // Other settings
-      define('OTGS_INSTALLER_SITE_KEY_WPML', 'XXXX');
+      // e.g. define('OTGS_INSTALLER_SITE_KEY_WPML', 'XXXX');
+
    } elseif ('development' == WP_ENVIRONMENT_TYPE) {
       // Dev environment settings
 
@@ -70,7 +66,8 @@ if (defined('WP_ENVIRONMENT_TYPE')) {
       define('WP_DISABLE_FATAL_ERROR_HANDLER', true);
 
       // Other settings
-      define('OTGS_INSTALLER_SITE_KEY_WPML', 'XXXX');
+      // e.g. define('OTGS_INSTALLER_SITE_KEY_WPML', 'XXXX');
+
    } elseif ('production' == WP_ENVIRONMENT_TYPE) {
 
       // Production environment settings
@@ -88,7 +85,8 @@ if (defined('WP_ENVIRONMENT_TYPE')) {
       define('ALGOLIA_API_KEY', 'XXXX');
 
       // Other settings
-      define('OTGS_INSTALLER_SITE_KEY_WPML', 'XXXX');
+      // e.g. define('OTGS_INSTALLER_SITE_KEY_WPML', 'XXXX');
+
    }
 }
 ```
@@ -97,17 +95,14 @@ if (defined('WP_ENVIRONMENT_TYPE')) {
 
 ### Adding existing content
 
-To reindex the global index,
+To update the global index,
 
-`wp algolia update_algolia_index`
+`wp algolia update`
 
-To update the index used for the map, add the `--index` argument:
+To update other indices, add the `--index` argument:
 
-e.g. `wp algolia update_algolia_index --index=map`
+e.g. `wp algolia update --index=my-custom-index`
 
-To reindex a non-English global index, add the `--lang` argument:
+To reindex a non-English index, add the `--lang` argument:
 
-`wp algolia update_algolia_index --lang=chs`
-
-e.g. `wp algolia update_algolia_index --index=map --lang=cht`
-
+e.g. `wp algolia update --lang=cht`

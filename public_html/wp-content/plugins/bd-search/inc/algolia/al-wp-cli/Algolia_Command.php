@@ -1,6 +1,6 @@
 <?php // 
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
    die('Invalid request, dude!');
 }
 
@@ -19,16 +19,19 @@ class Algolia_Command
        */
       global $algolia;
 
-      if (!defined('WP_ENVIRONMENT_TYPE')) {
-         WP_CLI::line(WP_ENVIRONMENT_TYPE);
-         WP_CLI::error('Environment not defined, exiting!');
+      // Skip prompt
+      if (isset($assoc_args['skip-prompt'])) {
+         $skip_prompt = 'yes';
+      } else {
+         $skip_prompt = 'no';
       }
+      // error_log(print_r($skip_prompt, true));
 
       // Display environment data
       WP_CLI::runcommand('algolia check_env');
 
       // Get user confirmation
-      WP_CLI::confirm("Are you sure you want to continue?", $assoc_args);
+      // WP_CLI::confirm("Are you sure you want to continue?", array('yes'));
 
       // Get index name
       if (isset($assoc_args['index'])) {
@@ -157,17 +160,9 @@ class Algolia_Command
             if (isset($assoc_args['verbose'])) {
                WP_CLI::line('Indexing [' . $post->post_type . '][' . $post->post_title . ']');
             }
-            $record = (array) apply_filters(str_replace('-', '_', $post_type) . '_to_record', $post);
 
-            /* Check record size does not exceed Algolia Max Record Size */
-            $sizeOk = BD616_check_record_size($record, $post_id);
-            if ($sizeOk === false) {
-               continue;
-            }
-
-            if (!isset($record['objectID'])) {
-               $record['objectID'] = implode('#', [$post->post_type, $post->ID]);
-            }
+            // Convert post data to Algolia record
+            $record = bd324_convert_post_data($post);
 
             $records[] = $record;
             $count++;
@@ -195,6 +190,9 @@ class Algolia_Command
       WP_CLI::success("$count entries reindexed [$algolia_full_index_name]");
    }
 
+   /**
+    * Provide information about the environment
+    */
    public function check_env()
    {
       /**
@@ -204,21 +202,21 @@ class Algolia_Command
       if (defined('DB_NAME')) {
          WP_CLI::success("DB Name : " . DB_NAME);
       } else {
-         WP_CLI::line("DB Name not defined");
+         WP_CLI::warning("DB Name not defined");
       }
 
       // WP ENV
       if (defined('WP_ENVIRONMENT_TYPE')) {
          WP_CLI::success("WP Env : " . WP_ENVIRONMENT_TYPE);
       } else {
-         WP_CLI::line('WP Env not defined');
+         WP_CLI::warning('WP Env not defined');
       }
 
       // APP ID
       if (defined('ALGOLIA_APPLICATION_ID')) {
-         WP_CLI::success("APP ID : " . ALGOLIA_APPLICATION_ID);
+         WP_CLI::success("App ID : " . ALGOLIA_APPLICATION_ID);
       } else {
-         WP_CLI::line('APP ID not defined');
+         WP_CLI::warning('App ID not defined');
       }
    }
 }

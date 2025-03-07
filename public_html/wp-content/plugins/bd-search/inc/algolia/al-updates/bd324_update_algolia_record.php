@@ -16,11 +16,7 @@ if (!defined('ABSPATH')) {
  */
 function bd324_update_algolia_record($post_id, WP_Post $post)
 {
-   // Environment Check
-   if (!defined('WP_ENVIRONMENT_TYPE')) {
-      error_log(print_r("WP_ENVIRONMENT_TYPE not defined!", true));
-      return $post;
-   }
+   global $algolia;
 
    if (!$post) {
       $post = get_post();
@@ -35,31 +31,9 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
       return;
    }
 
-   global $algolia;
 
-   /**
-    * Add rows to the $record array depending on the post type via filter.
-    * See `add-records/add-{{$post_type}}.php` for filters.
-    * @param   string   $post_type
-    * @return  array    $record
-    */
-   $filter_name = str_replace('-', '_', $post_type) . '_to_record';
-   $record = (array) apply_filters($filter_name, $post);
-
-   if(function_exists('BD616_check_record_size')):
-      /* Check record size does not exceed Algolia Max Record Size */
-      $sizeOk = BD616_check_record_size($record, $post_id);
-      if ($sizeOk === false) {
-         return;
-      }
-   endif;
-
-   /**
-    * Add ID if record doesn't already have one.
-    */
-   if (!isset($record['objectID'])) {
-      $record['objectID'] = implode('#', [$post_type, $post_id]);
-   }
+   // Convert post data to Algolia record
+   $record = bd324_convert_post_data($post);
 
    // Get an array of index names
    // ***************************
@@ -70,11 +44,6 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
       array('global'), // Default
       $post_type
    );
-
-   // Warn if indices = default
-   if ($index_names === array('global')) {
-      error_log(print_r("WARNING: No custom indices specified!", true));
-   }
 
    /**
     * Loop over the array of indices
