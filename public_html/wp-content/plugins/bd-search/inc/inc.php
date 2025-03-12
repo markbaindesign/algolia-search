@@ -13,5 +13,5 @@ require_once BD616__PLUGIN_DIR . '/inc/scripts.php';
 require_once BD616__PLUGIN_DIR . '/inc/shortcodes.php';
 require_once BD616__PLUGIN_DIR . '/inc/styles.php';
 require_once BD616__PLUGIN_DIR . '/inc/wpml.php';
-require_once BD616__PLUGIN_DIR . '/templates/templates.php';
+require_once BD616__PLUGIN_DIR . '/inc/templates/templates.php';
 require_once BD616__PLUGIN_DIR . '/vendor/autoload.php';

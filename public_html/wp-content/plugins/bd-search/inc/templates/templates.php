@@ -4,9 +4,7 @@ if (!defined('ABSPATH')) {
    die('Invalid request, dude!');
 }
 
-/**
- * Here lives some template parts. 
- */
+require_once 'helpers/helpers.php';
 
 /**
  * Search Listings
@@ -17,7 +15,7 @@ if (!defined('ABSPATH')) {
  * @param $index       The index to search
  */
 if(!function_exists('BD616__show_search_listings')):
-   function BD616__show_search_listings($index, $handle_script, $handle_config)
+   function BD616__show_search_listings($index, $handle_script, $handle_config, $template_name)
    {
       $output = '';
 
@@ -43,51 +41,27 @@ if(!function_exists('BD616__show_search_listings')):
       $output .= $wrapper_open;
 
       // Search
-      $search = apply_filters(
-         'BD616__filter_algolia_listings_search', 
-         '<div id="algolia-listings__search--' . $index . '" class="searchbox algolia-listings__search algolia-listings__search--'. $index .'"></div>',
-         $index
-      );
+      $search = bd324_get_algolia_template_part('searchbox', $index, $template_name);
       $output .= $search;
       
       // Stats
-      $stats = apply_filters(
-         'BD616__filter_algolia_listings_stats', 
-         '<div id="algolia-listings__stats--' . $index . '" class="algolia-listings__stats algolia-listings__stats--'. $index .'"></div>',
-         $index
-      );
+      $stats = bd324_get_algolia_template_part('stats', $index, $template_name);
       $output .= $stats;
 
       // Filters
-      $filters = apply_filters(
-         'BD616__filter_algolia_listings_filters', 
-         '<div id="algolia-listings__filters--' . $index . '" class="algolia-listings__filters algolia-filters algolia-listings__filters--'. $index .'"></div>',
-         $index
-      );
+      $filters = bd324_get_algolia_template_part('filters', $index, $template_name);
       $output .= $filters;
 
       // Clear Filters
-      $filters_clear = apply_filters(
-         'BD616__filter_algolia_listings_filters_clear', 
-         '<div id="algolia-listings__filters-clear--' . $index . '" class="algolia-listings__filters-clear algolia-listings__filters-clear--'. $index .'"></div>',
-         $index
-      );
+      $filters_clear = bd324_get_algolia_template_part('filters_clear', $index, $template_name);
       $output .= $filters_clear;
 
       // Current Filters
-      $filters_current = apply_filters(
-         'BD616__filter_algolia_listings_filters_current', 
-         '<div id="algolia-listings__filters-current--' . $index . '" class="algolia-listings__filters-current algolia-listings__filters-current--'. $index .'"></div>',
-         $index
-      );
+      $filters_current = bd324_get_algolia_template_part('filters_current', $index, $template_name);
       $output .= $filters_current;
 
       // Hits
-      $hits = apply_filters(
-         'BD616__filter_algolia_listings_hits', 
-         '<div id="algolia-listings__hits--' . $index . '" class="algolia-listings__hits algolia-listings__hits--'. $index .'"></div>',
-         $index
-      );
+      $hits = bd324_get_algolia_template_part('hits', $index, $template_name);
       $output .= $hits;
 
       // Close Wrapper
@@ -101,7 +75,7 @@ if(!function_exists('BD616__show_search_listings')):
       // Output
       // Filter allows reordering/removal of elements in template
       echo apply_filters(
-         'BD616__filter_algolia_listings_template_output', 
+         'BD616__filter_algolia_template_output_' . $index . '_' . $template_name, 
          $output,
          $index,
          $wrapper_open,
