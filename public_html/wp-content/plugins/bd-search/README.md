@@ -106,3 +106,27 @@ e.g. `wp algolia update --index=my-custom-index`
 To reindex a non-English index, add the `--lang` argument:
 
 e.g. `wp algolia update --lang=cht`
+
+## Filters
+
+The following filters can be used to modify the default Algolia index settings.
+
+### `bd324_filter_algolia_index_config_searchableAttributes_{{full_index_name}}` 
+
+Change the searchable attributes.
+
+#### `bd324_filter_algolia_index_config_attributesForFaceting_{{full_index_name}}` 
+
+Change the attibutes for faceting.
+
+#### `bd324_filter_get_post_types_for_index_{{index_name}}`
+
+Change the post types to be indexed.
+
+### Template Parts
+
+Default template parts can be changed with the following filter, which uses the unique template part ID.
+
+This filter is used to add custom filters to the search interface. The unique IDs should match those in the custom JS file.
+
+`BD616__filter_algolia_template_part_{{template_id}}`
