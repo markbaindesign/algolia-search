@@ -130,3 +130,7 @@ Default template parts can be changed with the following filter, which uses the 
 This filter is used to add custom filters to the search interface. The unique IDs should match those in the custom JS file.
 
 `BD616__filter_algolia_template_part_{{template_id}}`
+
+The `{{template_id}}` is made up as follows:
+
+`algolia-{{template_part_name}}-{{index_name}}--{{template_name}}`
