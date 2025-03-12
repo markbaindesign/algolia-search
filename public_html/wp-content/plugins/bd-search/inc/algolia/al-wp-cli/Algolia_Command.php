@@ -41,7 +41,7 @@ class Algolia_Command
       }
 
       // Get post types to index
-      if (isset($assoc_args['post_types'])) {
+      if (isset($assoc_args['post_types'])) { // To Do: check if this is working
          // Get post types string
          $algolia_index_post_types_args = $assoc_args['post_types'];
          // Convert to array
