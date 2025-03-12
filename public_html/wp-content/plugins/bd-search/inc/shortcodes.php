@@ -62,10 +62,12 @@ if(!function_exists('BD616__searchform_shortcode')):
       // Attributes
       extract(shortcode_atts(array(
          'index' => 'global',
+         'template' => ''
       ), $atts));
 
       // Vars
       $content = '';
+
       $facets = apply_filters(
          'bd324_filter_search_facets_' . $index,
          array()
@@ -76,12 +78,20 @@ if(!function_exists('BD616__searchform_shortcode')):
       }
 
       // Enqueue default Algolia Scripts
-      algolia_enqueue_default_scripts();
-      $script = 'algolia-search-' . $index;
-      $config_script = 'algolia-search-' . $index . '-config';
+      algolia_enqueue_default_scripts(); // Vendor
 
-      wp_enqueue_script($script);
-      wp_enqueue_script($config_script);
+      // Default script handles
+      $handle_script = 'algolia-search-' . $index;
+      $handle_script_config = 'algolia-search-' . $index . '-config';
+
+      wp_enqueue_script(
+         apply_filters(
+         'bd324_filter_handle_script_' . $index, 
+         $handle_script
+         )
+      );
+
+      wp_enqueue_script($handle_script_config);
 
       /* Main Header */
       $layout_header_main = '';
