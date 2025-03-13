@@ -109,21 +109,3 @@ if (!function_exists('BD616__search_menu')):
       return $content;
    }
 endif;
-
-/**
- * I suspect this is not used. Maybe created it to add via action?
- * 
- * Not used in this Core plugin!
- * Not used in KF theme!
- * Not used in KF custom plugin!
- * Not used in MWE workspace!
- * Not found in SINI!
- * 
- */
-if (!function_exists('BD616__search_global_echo')):
-   function BD616__search_global_echo()
-   {
-      $content = BD616__search_global();
-      echo $content;
-   }
-endif;
