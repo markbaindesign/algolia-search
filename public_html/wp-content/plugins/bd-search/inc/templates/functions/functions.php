@@ -83,29 +83,3 @@ if (!function_exists('bd324_get_template_advanced_search')):
       return $output;
    }
 endif;
-
-
-/**
- * Function used in shortcode in this plugin.
- * Used in inc/shortcodes/functions/BD616__search.php
- * 
- * Used in KF theme: /functions/kf-theme.php
- * 
- * Not: MWE, SINI
- * 
- * 
- * 
- */
-if (!function_exists('BD616__search_global')):
-   function BD616__search_global()
-   {
-      $content = '';
-      wp_enqueue_script('algolia-search-global');
-      wp_enqueue_script('algolia-search-global-config');
-      $content .= '<div id="searchbox--global" class="searchbox searchbox--global searchbox--dropdown"></div>';
-      $content .= '<div id="hits--global" class="hits hits--compact"></div>';
-      return $content;
-   }
-endif;
-
-
