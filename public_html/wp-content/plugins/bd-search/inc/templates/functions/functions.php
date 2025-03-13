@@ -83,3 +83,36 @@ if (!function_exists('bd324_get_template_advanced_search')):
       return $output;
    }
 endif;
+
+if (!function_exists('BD616__search_global')):
+   function BD616__search_global()
+   {
+      $content = '';
+      wp_enqueue_script('algolia-search-global');
+      wp_enqueue_script('algolia-search-global-config');
+      $content .= '<div id="searchbox--global" class="searchbox searchbox--global searchbox--dropdown"></div>';
+      $content .= '<div id="hits--global" class="hits hits--compact"></div>';
+      return $content;
+   }
+endif;
+
+if (!function_exists('BD616__search_menu')):
+   // Menu Search
+   function BD616__search_menu()
+   {
+      $content = '';
+      wp_enqueue_script('algolia-search-menu');
+      $content .= '<div id="searchbox--menu" class="searchbox searchbox--menu searchbox--global searchbox--dropdown"></div>';
+
+      $content .= '<div id="hits--menu" class="hits hits--compact"></div>';
+      return $content;
+   }
+endif;
+
+if (!function_exists('BD616__search_global_echo')):
+   function BD616__search_global_echo()
+   {
+      $content = BD616__search_global();
+      echo $content;
+   }
+endif;

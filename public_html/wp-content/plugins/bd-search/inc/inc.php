@@ -11,7 +11,7 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/algolia.php';
 require_once BD616__PLUGIN_DIR . '/inc/form.php';
 require_once BD616__PLUGIN_DIR . '/inc/modal.php';
 require_once 'scripts/scripts.php';
-require_once BD616__PLUGIN_DIR . '/inc/shortcodes.php';
+require_once 'shortcodes/shortcodes.php';
 require_once 'styles/styles.php';
 require_once BD616__PLUGIN_DIR . '/inc/wpml.php';
 require_once BD616__PLUGIN_DIR . '/inc/templates/templates.php';
