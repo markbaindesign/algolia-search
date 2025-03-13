@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 require_once 'helpers/helpers.php';
+require_once 'functions/functions.php';
 
 /**
  * Search Listings
@@ -13,9 +14,10 @@ require_once 'helpers/helpers.php';
  * with filters.
  * 
  * @param $index       The index to search
+ * @param $template_name       The template name
  */
-if(!function_exists('BD616__show_search_listings')):
-   function BD616__show_search_listings($index, $handle_script, $handle_config, $template_name)
+if(!function_exists('bd324_show_advanced_search_template')):
+   function bd324_show_advanced_search_template($index, $template_name = null)
    {
       $output = '';
 
@@ -24,18 +26,16 @@ if(!function_exists('BD616__show_search_listings')):
          algolia_enqueue_default_scripts();
       }
 
-      if($handle_script){
-         wp_enqueue_script($handle_script);
-      }
-
-      if($handle_config){
-         wp_enqueue_script($handle_config);
-      }
+      // Enqueue Index Scripts
+      $handle_script = bd324_get_script_handles($index);
+      $handle_script_config = bd324_get_script_handles($index, true);
+      wp_enqueue_script($handle_script);
+      wp_enqueue_script($handle_script_config);
 
       // Open Wrapper
       $wrapper_open = apply_filters(
          'BD616__filter_algolia_listings_wrapper_open', 
-         '<!-- Start Search Listings --><div class="search-wrapper search-wrapper--listings search-wrapper--' . $index . '">',
+         '<div class="search-wrapper search-wrapper--listings search-wrapper--' . $index . '">',
          $index
       );
       $output .= $wrapper_open;
@@ -67,7 +67,7 @@ if(!function_exists('BD616__show_search_listings')):
       // Close Wrapper
       $wrapper_close = apply_filters(
          'BD616__filter_algolia_listings_wrapper_close', 
-         '</div><!-- End Search Listings -->',
+         '</div>',
          $index
       );
       $output .= $wrapper_close;
