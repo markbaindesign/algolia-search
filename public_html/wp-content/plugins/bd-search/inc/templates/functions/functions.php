@@ -97,6 +97,12 @@ if (!function_exists('BD616__search_global')):
    }
 endif;
 
+/**
+ * Not found: 
+ * SINI / MWE
+ * 
+ * Used in KF theme!
+ */
 if (!function_exists('BD616__search_menu')):
    // Menu Search
    function BD616__search_menu()
