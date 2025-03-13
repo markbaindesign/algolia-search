@@ -4,7 +4,6 @@ if (!defined('ABSPATH')) {
    die('Invalid request, dude.');
 }
 
-/* Requires */
 require_once BD616__PLUGIN_DIR . '/inc/admin.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/algolia.php';
 require_once BD616__PLUGIN_DIR . '/inc/form.php';
