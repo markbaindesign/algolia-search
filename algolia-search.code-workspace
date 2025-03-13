@@ -10,6 +10,7 @@
       }
    ],
    "settings": {
-      "editor.tabSize": 3
+      "editor.tabSize": 3,
+      "workbench.colorTheme": "Kimbie Dark"
    }
 }
