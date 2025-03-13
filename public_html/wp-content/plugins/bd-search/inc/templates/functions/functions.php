@@ -85,6 +85,17 @@ if (!function_exists('bd324_get_template_advanced_search')):
 endif;
 
 
+/**
+ * Function used in shortcode in this plugin.
+ * Used in inc/shortcodes/functions/BD616__search.php
+ * 
+ * Used in KF theme: /functions/kf-theme.php
+ * 
+ * Not: MWE, SINI
+ * 
+ * 
+ * 
+ */
 if (!function_exists('BD616__search_global')):
    function BD616__search_global()
    {
