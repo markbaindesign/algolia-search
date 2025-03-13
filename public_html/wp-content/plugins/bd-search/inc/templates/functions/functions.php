@@ -97,21 +97,4 @@ if (!function_exists('BD616__search_global')):
    }
 endif;
 
-/**
- * Not found: 
- * SINI / MWE
- * 
- * Used in KF theme!
- */
-if (!function_exists('BD616__search_menu')):
-   // Menu Search
-   function BD616__search_menu()
-   {
-      $content = '';
-      wp_enqueue_script('algolia-search-menu');
-      $content .= '<div id="searchbox--menu" class="searchbox searchbox--menu searchbox--global searchbox--dropdown"></div>';
 
-      $content .= '<div id="hits--menu" class="hits hits--compact"></div>';
-      return $content;
-   }
-endif;
