@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
  * @param $template_name       The template name
  */
 if(!function_exists('bd324_show_advanced_search_template')):
-   function bd324_show_advanced_search_template($index, $template_name = null)
+   function bd324_show_advanced_search_template($index, $template_name = '')
    {
       $output = '';
 
@@ -24,8 +24,8 @@ if(!function_exists('bd324_show_advanced_search_template')):
       }
 
       // Enqueue Index Scripts
-      $handle_script = bd324_get_script_handles($index);
-      $handle_script_config = bd324_get_script_handles($index, true);
+      $handle_script = bd324_get_script_handles($index, $template_name);
+      $handle_script_config = bd324_get_script_handles($index, $template_name, true);
       wp_enqueue_script($handle_script);
       wp_enqueue_script($handle_script_config);
 
