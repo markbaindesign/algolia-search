@@ -18,11 +18,13 @@ if (!function_exists('BD616__searchform_shortcode')):
       // Attributes
       extract(shortcode_atts(array(
          'index' => 'global',
-         'template' => ''
+         'template' => 'shortcode'
       ), $atts));
 
       // Vars
       $content = '';
+      $index = 'global';
+      $template = '';
 
       $facets = apply_filters(
          'bd324_filter_search_facets_' . $index,
@@ -33,17 +35,12 @@ if (!function_exists('BD616__searchform_shortcode')):
          $index = $atts["index"];
       }
 
-      // Enqueue default Algolia Scripts
-      algolia_enqueue_default_scripts(); // Vendor
-
-      // Enqueue Index Scripts
-      $handle_script = bd324_get_script_handles($index);
-      $handle_script_config = bd324_get_script_handles($index, true);
-      wp_enqueue_script($handle_script);
-      wp_enqueue_script($handle_script_config);
+      if (isset($atts["template"])) {
+         $template = $atts["template"];
+      }
 
       ob_start();
-      echo bd324_show_advanced_search_template($index);
+      echo bd324_show_advanced_search_template($index, $template);
 
       $content =  ob_get_contents();
       ob_clean();
