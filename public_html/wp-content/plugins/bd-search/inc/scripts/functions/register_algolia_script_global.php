@@ -13,8 +13,8 @@ if (!function_exists('bd324_register_algolia_script_global')):
    {
       $script_handle = 'algolia-search-global';
       $config_handle = 'algolia-search-global-config';
-      $script_url = BD616__SCRIPTS_URL . '/custom/algolia/global/modal/' . $script_handle . '.js';
-      $script_url_config = BD616__SCRIPTS_URL . '/custom/algolia/global/modal/' . $config_handle . '.js';
+      $script_url = BD616__SCRIPTS_URL . '/custom/algolia/global/' . $script_handle . '.js';
+      $script_url_config = BD616__SCRIPTS_URL . '/custom/algolia/global/' . $config_handle . '.js';
       $plugin_version = BD616__PLUGIN_VERSION;
 
       // Register scripts

@@ -7,6 +7,6 @@ if (!defined('ABSPATH')) {
 
 require_once 'functions/get_script_handles.php';
 require_once 'functions/register_algolia_scripts.php';
-require_once 'functions/load_default_scripts.php';
+require_once 'functions/enqueue_default_scripts.php';
 require_once 'functions/register_algolia_script_global.php';
-require_once 'functions/register_algolia_script_global_shortcode.php';
+require_once 'functions/register_algolia_script_global_advanced.php';
