@@ -9,26 +9,24 @@ if (!defined('ABSPATH')) {
  *
  * Helper function to get script handles
  * @param $index_name       The index name
+ * @param $template_name       The template name
  * @param $is_config       Is this a config script
  */
 if (!function_exists('bd324_get_script_handles')):
-   function bd324_get_script_handles($index_name, $is_config = false)
+   function bd324_get_script_handles($index_name, $template_name = '', $is_config = false)
    {
-      /* Vars */
       $output = '';
-      $handle_script = 'algolia-search-' . $index_name;
-      $handle_script_config = 'algolia-search-' . $index_name . '-config';
-      if ($is_config) {
-         $output = $handle_script_config;
-      } else {
-         $output = $handle_script;
+      $handle = 'algolia-search-' . $index_name;
+      if ($template_name) {
+         $handle .= '-' . $template_name;
       }
-
+      if ($is_config) {
+         $handle .= '-config';
+      }
       $output = apply_filters(
-         'bd324_filter_handle_script_' . $index_name,
-         $output
+         'bd324_filter_handle_script_' . $handle,
+         $handle
       );
-
       return $output;
    }
 endif;

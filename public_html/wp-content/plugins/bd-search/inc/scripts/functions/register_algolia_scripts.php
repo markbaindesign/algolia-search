@@ -10,8 +10,8 @@ if (!defined('ABSPATH')) {
  * functionDescription
  * @param $functionParam       functionDescription
  */
-if (!function_exists('bd324_algolia_load_index_scripts')):
-   function bd324_algolia_load_index_scripts($script_handle, $config_handle, $script_url, $script_url_config, $plugin_version)
+if (!function_exists('bd324_algolia_register_scripts')):
+   function bd324_algolia_register_scripts($script_handle, $config_handle, $script_url, $script_url_config, $plugin_version)
    {
       // Translations Array
       $algolia_translations = array(
