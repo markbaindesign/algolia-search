@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
  * Load Algolia scripts
  */
 if (!function_exists('bd324_algolia_load_scripts_default')):
-   function bd324_algolia_load_scripts_default($functionParam)
+   function bd324_algolia_load_scripts_default()
    {
       // Get current language
       $active_language = array(

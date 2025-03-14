@@ -6,22 +6,10 @@ if (!defined('ABSPATH')) {
 
 /**
  * Load index scripts
- *
- * functionDescription
- * @param $functionParam       functionDescription
  */
 if (!function_exists('bd324_algolia_register_scripts')):
    function bd324_algolia_register_scripts($script_handle, $config_handle, $script_url, $script_url_config, $plugin_version)
    {
-      // Translations Array
-      $algolia_translations = array(
-         'placeholder_search' => esc_attr__('Search', '_bd_algolia_search_plugin'),
-         'label_reset' => esc_attr__('Clear', '_bd_algolia_search_plugin'),
-         'label_empty' => esc_attr__('Nothing found', '_bd_algolia_search_plugin'),
-         'label_more' => esc_attr__('More', '_bd_algolia_search_plugin'),
-         'label_reset_filters' => esc_attr__('Reset filters', '_bd_algolia_search_plugin'),
-         'label_no_filters' => esc_attr__('No filters', '_bd_algolia_search_plugin'),
-      );
 
       // Register script
       wp_register_script(
@@ -47,10 +35,11 @@ if (!function_exists('bd324_algolia_register_scripts')):
          )
       );
 
+      $script_handle_underscores = str_replace('-', '_', $script_handle);
       wp_localize_script(
          $script_handle,
-         'algolia_translations_object',
-         $algolia_translations
+         'translations_object_' . $script_handle_underscores,
+         bd324_get_algolia_translation($script_handle_underscores)
       );
    }
 endif;
