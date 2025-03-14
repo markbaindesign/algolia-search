@@ -67,6 +67,7 @@ if (!function_exists('BD616__get_search_form')) :
 
       <!-- Footer -->
       <footer class="search-modal__footer">
+
          <div class="credits">
             <a href="https://www.algolia.com/" rel="noopener noreferrer" target="_blank" class="flex items-center h-full"><span class="text-grey-500 text-xs">Search by </span><svg viewBox="0 0 2196.2 500" class="block h-full flex-shrink-0 ml-8" aria-label="Algolia">
                   <path fill="#003dff" fill-rule="evenodd" d="M1070.38,275.3V5.91c0-3.63-3.24-6.39-6.82-5.83l-50.46,7.94c-2.87,.45-4.99,2.93-4.99,5.84l.17,273.22c0,12.92,0,92.7,95.97,95.49,3.33,.1,6.09-2.58,6.09-5.91v-40.78c0-2.96-2.19-5.51-5.12-5.84-34.85-4.01-34.85-47.57-34.85-54.72Z"></path>
