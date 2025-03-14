@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
  * @param $template_name   Template name
  */
 if (!function_exists('bd324_get_algolia_template_part')):
-   function bd324_get_algolia_template_part($template_part_name, $index_name, $template_name = null)
+   function bd324_get_algolia_template_part($template_part_name, $index_name, $template_name = '')
    {
 
       $template_id = bd324_get_algolia_template_part_id($template_part_name, $index_name, $template_name);
