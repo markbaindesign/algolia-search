@@ -111,19 +111,31 @@ e.g. `wp algolia update --lang=cht`
 
 The following filters can be used to modify the default Algolia index settings.
 
-### `bd324_filter_algolia_index_config_searchableAttributes_{{full_index_name}}` 
+### Change the searchable attributes.
 
-Change the searchable attributes.
+```
+bd324_filter_algolia_index_config_searchableAttributes_{{full_index_name}}
+```
 
-#### `bd324_filter_algolia_index_config_attributesForFaceting_{{full_index_name}}` 
+### Change the attibutes for faceting.
 
-Change the attibutes for faceting.
+```
+bd324_filter_algolia_index_config_attributesForFaceting_{{full_index_name}}
+```
 
-#### `bd324_filter_get_post_types_for_index_{{index_name}}`
+### Change the post types to be indexed.
 
-Change the post types to be indexed.
+```
+bd324_filter_get_post_types_for_index_{{index_name}}
+```
 
-### Template Parts
+### Change the trigger class for the Modal
+
+```
+bd324_filter_modal_trigger
+```
+
+## Template Parts
 
 Default template parts can be changed with the following filter, which uses the unique template part ID.
 
