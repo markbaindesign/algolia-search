@@ -10,6 +10,12 @@ if (!defined('ABSPATH')) {
  * This is the legacy template function from the shortcode. 
  * 
  * @param $functionParam       functionDescription
+ * 
+ * Not used here!
+ * Not used in KF! Or MWE! Or SINI!
+ */
+ * 
+ * 
  */
 if (!function_exists('bd324_get_template_advanced_search')):
    function bd324_get_template_advanced_search($index, $facets)
