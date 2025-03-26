@@ -7,7 +7,17 @@ if (!defined('ABSPATH')) {
 /* Set config for indices */
 function algolia_index_config($index, $algolia_full_index_name)
 {
-   $forwardToReplicas = true;
+   $forwardToReplicas = apply_filters(
+      'bd324_filter_algolia_index_config_forwardToReplicas_' . str_replace('-', '_', $algolia_full_index_name),
+      true,
+      $index
+   );;
+
+   $hitsPerPage = apply_filters(
+      'bd324_filter_algolia_index_config_hitsPerPage_' . str_replace('-', '_', $algolia_full_index_name),
+      12,
+      $index
+   );
 
    $searchableAttributes = apply_filters(
       'bd324_filter_algolia_index_config_searchableAttributes_' . str_replace('-', '_', $algolia_full_index_name),
@@ -43,7 +53,7 @@ function algolia_index_config($index, $algolia_full_index_name)
    $index->setSettings(
       [
          'searchableAttributes' => $searchableAttributes,
-         'hitsPerPage' => 12,
+         'hitsPerPage' => $hitsPerPage,
          'attributesForFaceting' => $attributesForFaceting,
          'attributesToSnippet' => $attributesToSnippet,
       ],
