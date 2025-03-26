@@ -284,4 +284,13 @@ Styles can be customized using CSS variables. The following variables are availa
 
 ```
 
+# Custom Indexes
+
+## Custom default Global index
+
+To load a custom script for the default Global index, you should also remove the action which registers the default global script.
+
+```
+remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_global');
+```
 
