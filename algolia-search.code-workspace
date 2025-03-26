@@ -1,0 +1,16 @@
+{
+   "folders": [
+      {
+         "name": "Search Plugin",
+         "path": "public_html/wp-content/plugins/bd-search"
+      },
+      {
+         "name": "Root",
+         "path": "."
+      }
+   ],
+   "settings": {
+      "editor.tabSize": 3,
+      "workbench.colorTheme": "Tomorrow Night Blue"
+   }
+}

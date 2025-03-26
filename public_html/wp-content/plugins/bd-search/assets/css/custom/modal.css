@@ -1,0 +1,82 @@
+/* Styles for the Modal window */
+
+@import "header.css";
+@import "footer.css";
+@import "overlay.css";
+
+:root {
+   --search-modal-padding: 14px;
+}
+
+/* Modal Window */
+.search-modal {
+   visibility: hidden;
+   opacity: 0;
+   display: flex;
+   justify-content: space-between;
+   flex-direction: column;
+   z-index: var(--bd-search-modal-z-index);
+   height: var(--bd-search-modal-height); 
+   width: var(--bd-search-modal-width);
+   max-width: var(--bd-search-modal-max-width);
+   max-height: var(--bd-search-modal-max-height);
+   overflow: hidden;
+   position: fixed; 
+   top: var(--bd-search-modal-top);
+   left: 0; 
+   right: 0; 
+   margin-left: auto; 
+   margin-right: auto;
+   border: var(--bd-search-modal-border);
+   border-radius: var(--bd-search-modal-border-radius);
+   background-color: var(--bd-search-modal-background-color);
+   box-shadow: var(--bd-search-modal-box-shadow);
+   padding: var(--bd-search-modal-padding);
+}
+
+.jsModalSearchOpen .search-modal {
+   visibility: visible;
+   opacity: 1;
+}
+
+
+
+/* Modal Close Button */
+.search-modal__close-button i::before {
+   content: '';
+   font-style: normal;
+   display: block;
+   font-size: 1.2rem;
+   width: 13px; 
+   height: 16px;
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3C!--!Font Awesome Pro 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2024 Fonticons, Inc.--%3E%3Cpath d='M345 137l17-17L328 86.1l-17 17-119 119L73 103l-17-17L22.1 120l17 17 119 119L39 375l-17 17L56 425.9l17-17 119-119L311 409l17 17L361.9 392l-17-17-119-119L345 137z'/%3E%3C/svg%3E");
+   background-repeat: no-repeat;
+}
+
+.search-modal__close-button i:hover {
+   cursor: pointer;
+}
+
+/* Modal Main */
+
+.search-modal__main {
+   display: flex;
+   flex-grow: 1;
+   overflow: hidden;
+   padding: 0;
+}
+
+/* Filters */
+.search-modal__filters {
+   display: var(--bd-search-modal-form-filters-display);
+
+}
+.search-modal__filters ul {
+   margin: 0;
+   padding: 0;
+   display: flex;
+   gap: 0.8rem;
+}
+.search-modal__filters ul li {
+   display: inline-flex;
+}

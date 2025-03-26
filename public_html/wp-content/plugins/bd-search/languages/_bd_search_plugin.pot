@@ -1,0 +1,112 @@
+# Copyright (C) 2023 Bain Design
+# This file is distributed under the GNU General Public License v2.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: Khyentse Foundation Search Plugin 0.62.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/kf-search\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-09-29T10:13:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.9.0-alpha-9ce7c5a\n"
+"X-Domain: _bd_algolia_search_plugin\n"
+
+#. Plugin Name of the plugin
+#: kf-search.php:21
+msgid "Khyentse Foundation Search Plugin"
+msgstr ""
+
+#. Description of the plugin
+msgid "Adds advanced search functionality to the Khyentse Foundation WordPress site. Powered by Algolia."
+msgstr ""
+
+#. Author of the plugin
+msgid "Bain Design"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://bain.design"
+msgstr ""
+
+#: algolia/al-records/add-award.php:29
+#: algolia/al-records/add-award.php:32
+msgid "Awards & Prizes"
+msgstr ""
+
+#: algolia/al-records/add-event.php:24
+msgid "Event"
+msgstr ""
+
+#: algolia/al-records/add-event.php:29
+msgid "Events"
+msgstr ""
+
+#: algolia/al-records/add-grant.php:31
+#: algolia/al-records/add-grant.php:35
+msgid "Grants & Scholarships"
+msgstr ""
+
+#: algolia/al-records/add-institution.php:41
+msgid "What We Do / Core Activities / Academia / Universities"
+msgstr ""
+
+#: algolia/al-records/add-post.php:23
+msgid "Newsroom"
+msgstr ""
+
+#: algolia/al-records/add-project.php:25
+msgid "What We Do"
+msgstr ""
+
+#: algolia/al-records/add-recipient.php:92
+msgid "Recipient"
+msgstr ""
+
+#: algolia/al-records/add-recipient.php:95
+msgid "Grants & Scholarships Recipients"
+msgstr ""
+
+#: algolia/al-records/add-report.php:24
+#: algolia/al-records/add-report.php:29
+msgid "Annual Report"
+msgstr ""
+
+#: algolia/al-records/add-report.php:30
+msgid "Test test test"
+msgstr ""
+
+#: algolia/al-records/add-team-member.php:67
+msgid "Team Member"
+msgstr ""
+
+#: algolia/al-records/add-team-member.php:74
+msgid "Our Team"
+msgstr ""
+
+#: kf-search.php:43
+#: scripts.php:35
+msgid "Search"
+msgstr ""
+
+#: scripts.php:36
+msgid "Clear"
+msgstr ""
+
+#: scripts.php:37
+msgid "Nothing found"
+msgstr ""
+
+#: scripts.php:38
+msgid "More"
+msgstr ""
+
+#: scripts.php:39
+msgid "Reset filters"
+msgstr ""
+
+#: scripts.php:40
+msgid "No filters"
+msgstr ""

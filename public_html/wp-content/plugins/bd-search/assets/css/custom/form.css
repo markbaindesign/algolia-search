@@ -1,0 +1,210 @@
+/* Form */
+
+.ais-SearchBox-input {
+   background-color: var(--bd-search-form-input-bg-color);
+   box-shadow: var(--bd-search-form-input-box-shadow);
+   border-radius: var(--bd-search-form-input-border-radius);
+   border-width: var(--bd-search-form-input-border-width);
+   border-style: var(--bd-search-form-input-border-style);
+   border-color: var(--bd-search-form-input-border-color);
+   width: var(--bd-search-form-input-width);
+   font-size: var(--bd-search-form-input-font-size);
+   line-height: var(--bd-search-form-input-line-height);
+}
+.ais-SearchBox-input:focus {
+   box-shadow: var(--bd-search-form-input-focus-box-shadow);
+   border-radius: var(--bd-search-form-input-focus-border-radius);
+   border-width: var(--bd-search-form-input-focus-border-width);
+   border-style: var(--bd-search-form-input-focus-border-style);
+   border-color: var(--bd-search-form-input-focus-border-color);
+   outline: var(--bd-search-form-input-focus-outline);
+}
+.ais-SearchBox-input::placeholder {
+   opacity: 0.5;
+}
+.ais-SearchBox-input:focus::placeholder {
+   opacity: 0.3;
+}
+
+form.ais-SearchBox-form {
+   margin-block: 10px;
+}
+
+/* Prevent repeating loupe */
+.ais-SearchBox-form::before {
+	background-repeat: no-repeat;
+}
+
+.algolia-search__wrapper {
+   background-image: none;
+   background-color: unset;
+}
+
+/* Reset button */
+.ais-SearchBox-form .ais-SearchBox-reset {
+   font-size: var(--bd-search-form-submit-button-reset-font-size);
+   text-transform: var(--bd-search-form-submit-button-reset-transform);
+}
+
+/* Buttons */
+.bd-search button {
+   width: auto;
+   font-size: var(--bd-search-button-font-size);
+   font-weight: var(--bd-search-button-font-weight);
+   letter-spacing: var(--bd-search-button-font-spacing);
+   text-transform: var(--bd-search-button-text-transform);
+   color: var(--bd-search-form-button-color);
+   border: 1px solid var(--bd-search-form-button-border-color);
+   border-radius: var(--bd-search-form-button-border-radius);
+   box-shadow: var(--bd-search-form-button-box-shadow);
+   background-color: var(--bd-search-form-button-bg-color);
+   background-image: none;
+   padding: var(--bd-search-form-button-padding);
+}
+
+.bd-search button:hover {
+   color: var(--bd-search-form-button-color-hover);
+   background-color: var(--bd-search-form-button-bg-color-hover);
+   background-image: none;
+   border: 1px solid var(--bd-search-form-button-border-color-hover);
+   box-shadow: var(--bd-search-form-button-box-shadow-hover);
+}
+
+.bd-search button:focus {
+   color: var(--bd-search-form-button-color-focus);
+   background-color: var(--bd-search-form-button-bg-color-focus);
+   background-image: none;
+   border: 1px solid var(--bd-search-form-button-border-color-focus);
+   box-shadow: var(--bd-search-form-button-box-shadow-focus);
+}
+
+.bd-search button:disabled[disabled] {
+   color: var(--bd-search-form-button-color-disabled);
+   background-color: var(--bd-search-form-button-bg-color-disabled);
+   background-image: none;
+   border: 1px solid var(--bd-search-form-button-border-color-disabled);
+   box-shadow: var(--bd-search-form-button-box-shadow-disabled);
+}
+
+/* Submit button */
+button[type="submit"].ais-SearchBox-submit {
+   display: var(--bd-search-form-ais-SearchBox-submit-display);
+}
+
+/* Facets */
+.ais-RefinementList-count {
+   display: var(--bd-search-form-ais-RefinementList-count-display);
+   border-radius: 0;
+   border: none;
+}
+
+.ais-RefinementList-checkbox {
+   box-shadow: none;
+   border-radius: 0;
+}
+
+.ais-ClearRefinements-button {
+   width: auto;
+}
+
+.bd-search .ais-SearchBox-form .ais-SearchBox-reset,
+.bd-search .ais-RefinementList-searchBox .ais-SearchBox-reset {
+   background-color: unset;
+   border: none;
+   padding: 0;
+}
+.bd-search .ais-SearchBox-form .ais-SearchBox-reset:hover,
+.bd-search .ais-RefinementList-searchBox .ais-SearchBox-reset:hover {
+   fill: #000;
+   background-color: unset;
+   border: none;
+}
+.bd-search .ais-SearchBox-form .ais-SearchBox-reset:focus,
+.bd-search .ais-RefinementList-searchBox .ais-SearchBox-reset:focus {
+   fill: #000;
+   background-color: unset;
+   border: none;
+}
+.ais-ToggleRefinement {
+   margin-bottom: 1rem;
+}
+
+.search__filter {
+   margin-bottom: 1.5rem;
+}
+
+.search__filter h6 {
+   margin-bottom: 0.5rem;
+}
+.search__filters--age-range {
+   display: var(--bd-search-form-filter-display-age-range);
+}
+.search__filters--contributors {
+   display: var(--bd-search-form-filter-display-contributors);
+}
+.search__filters--method {
+   display: var(--bd-search-form-filter-display-method);
+}
+.search__filters--tradition {
+   display: var(--bd-search-form-filter-display-tradition);
+}
+.search__filters--category {
+   display: var(--bd-search-form-filter-display-category);
+}
+.search__filters--tags {
+   display: var(--bd-search-form-filter-display-tags);
+}
+
+/* Current Refinements */
+.search__current-refinements {
+   display: var(--bd-search-form-ais-CurrentRefinements-display);
+}
+
+.ais-CurrentRefinements-list {
+   grid-auto-flow: row;
+}
+
+.ais-CurrentRefinements-item {
+   border: none;
+   gap: 1rem;
+   background-color: unset;
+}
+
+.ais-CurrentRefinements-label {
+   display: none;
+}
+
+.ais-CurrentRefinements-category {
+   align-items: center;
+   background-color: #ddd;
+   margin: 0;
+   padding: 3px 7px;
+   gap: 7px;
+}
+
+.ais-CurrentRefinements-categoryLabel {
+   font-size: 1rem;
+   font-weight: bold;
+   padding: 0;
+}
+
+button.ais-CurrentRefinements-delete {
+   color: #000;
+   background-color: unset;
+   border: none;
+   padding: 0;
+   margin: 0;
+}
+
+button.ais-CurrentRefinements-delete:hover {
+   background-color: unset;
+   border: none;
+   padding: 0;
+   margin: 0;
+}
+
+/* Stats */
+.search__stats {
+   display: var(--bd-search-form-ais-Stats-display);
+   margin-bottom: 1rem;
+}
