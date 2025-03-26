@@ -151,7 +151,7 @@ class Algolia_Command
             $post_type = get_post_type($post_id);
 
             // Check post is allowed
-            if (!function_exists('BD616__is_post_allowed')):
+            if (function_exists('BD616__is_post_allowed')):
                if (!BD616__is_post_allowed($post_id, $post_type, $algolia_index_name)) {
                   continue;
                }
