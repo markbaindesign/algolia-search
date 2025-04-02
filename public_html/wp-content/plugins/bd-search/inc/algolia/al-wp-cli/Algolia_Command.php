@@ -100,37 +100,18 @@ class Algolia_Command
          WP_CLI::line('Switching language to [' . $algolia_index_language . ']');
       }
 
-      // Set the number of posts per page for the query
-      $posts_per_page = apply_filters('bd324_filter_posts_per_page', 300, $algolia_index_name, $algolia_index_language);
-
-      // Set the post status for the query
-      $post_status = apply_filters('bd324_filter_post_status', 'publish', $algolia_index_name, $algolia_index_language);
-
-      // Set whether to include posts with passwords in the query
-      $has_password = apply_filters('bd324_filter_has_password', false, $algolia_index_name, $algolia_index_language);
-
       do {
 
-
-         // Build the query arguments
-         $args = [
-            'posts_per_page' => $posts_per_page,
-            'paged'          => $paged,
-            'post_type'      => $post_types,
-            'post_status'    => $post_status,
-            'post__in'       => $post_ids,
-            'has_password'   => $has_password,
-         ];
-
-         /**
-          * Filter args before indexing
-          * @since 1.0.0
-          * @param array $args
-          * @param string $algolia_index_name
-          * @param string $algolia_index_language
-          * @return array $args
-          */
-         $args = apply_filters('bd324_filter_query_args_for_index_' . $algolia_index_name, $args, $algolia_index_name, $algolia_index_language);
+         // Get query args
+         if (function_exists('bd324_get_args_for_query')):
+            $args = bd324_get_args_for_query(
+               $algolia_index_name,
+               $algolia_index_language,
+               $post_types,
+               $post_ids,
+               $paged
+            );
+         endif;
 
          $posts = new WP_Query($args);
 
@@ -153,7 +134,7 @@ class Algolia_Command
             // Check post is allowed
             if (function_exists('BD616__is_post_allowed')):
                if (!BD616__is_post_allowed($post_id, $post_type, $algolia_index_name)) {
-                  continue;
+                  // continue;
                }
             endif;
 
@@ -175,8 +156,8 @@ class Algolia_Command
           * @param string $algolia_index_name
           * @return array $records
           */
-         $records = apply_filters('bd324_filter_records_before_indexing', $records, $algolia_index_name, $algolia_index_language);
-
+         // $records = apply_filters('bd324_filter_records_before_indexing', $records, $algolia_index_name, $algolia_index_language);
+         // $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
          $indexGlobal->saveObjects($records);
 
          $paged++;
