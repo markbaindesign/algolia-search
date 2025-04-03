@@ -1,0 +1,5 @@
+/* Modal Window Footer */
+
+.search-modal__footer {
+   border-top: var(--bd-search-modal-footer-border-top);
+}

@@ -92,13 +92,13 @@ class Algolia_Command
          WP_CLI::line('Indexing Post Types: [' . implode(", ", $post_types) . ']');
       }
 
-      /**
-       * Before running query, switch language
-       */
-      do_action('wpml_switch_language', $algolia_index_language);
-      if (isset($assoc_args['verbose'])) {
-         WP_CLI::line('Switching language to [' . $algolia_index_language . ']');
-      }
+      if (function_exists('wpml_switch_language')):
+         // Switch language
+         do_action('wpml_switch_language', $algolia_index_language);
+         if (isset($assoc_args['verbose'])) {
+            WP_CLI::line('Switching language to [' . $algolia_index_language . ']');
+         }
+      endif;
 
       do {
 
@@ -147,12 +147,11 @@ class Algolia_Command
 
             /* Check record size does not exceed Algolia Max Record Size */
             $sizeOk = BD616_check_record_size($record, $post_id);
-            if ($sizeOk ) {
+            if ($sizeOk) {
                // Add record to array
                $records[] = $record;
                $count++;
             }
-
          }
 
          $records = apply_filters('bd324_filter_records_before_indexing', $records, $algolia_index_name, $algolia_index_language);

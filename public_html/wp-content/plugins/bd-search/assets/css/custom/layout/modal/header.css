@@ -5,12 +5,10 @@
    display: flex;
    flex-direction: column;
    width: 100%;
-   border-bottom: var(--bd-search-modal-header-border-bottom);
    padding: var(--search-modal-padding);
 }
 
 .search-modal__header h2 {
-   font-size: 20px;
    margin-block: 0;
    margin-bottom: 10px;
 }
