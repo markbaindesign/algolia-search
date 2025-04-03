@@ -12,9 +12,10 @@ if (!defined('ABSPATH')) {
 
 function bd324_filter_remove_divi_shortcodes_from_content($content, WP_Post $post)
 {
-   
    // Removes Divi shortcodes
-   $content = preg_replace('/\[\/?et_pb.*?\]/', '', $content);
+   if (is_string($content)) {
+      $content = preg_replace('/\[et_pb.*?\]/', '', $content);
+   }
    return $content;
 }
 

@@ -20,15 +20,16 @@ if (!defined('ABSPATH')) {
  * Works on a string.
  * 
  * @param   $record           Record to check
- * @param   $mspr             Maximum Size Per Record
  * @return  $record           Checked Record
  */
 if (!function_exists('BD616_check_record_size')) :
-   function BD616_check_record_size($record, $post_id, $mspr = 10000)
+   function BD616_check_record_size($record, $post_id)
    {
       $record_size = mb_strlen(serialize((array)$record), '8bit');
-      if ($record_size > $mspr) {
-         error_log(sprintf("Record #%d Exceeds Maximum Size Per Record (size=%d/%d)", $post_id, $record_size, $mspr));
+      $max_length = defined('ALGOLIA_MAX_RECORD_LENGTH') ? ALGOLIA_MAX_RECORD_LENGTH : 10000;
+      if ($record_size > $max_length) {
+         error_log(sprintf("Record #%d Exceeds Maximum Size Per Record (size=%d/%d)", $post_id, $record_size, $max_length));
+         // error_log(print_r($record, true));
          return false;
       }
       return true;

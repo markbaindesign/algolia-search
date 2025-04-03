@@ -145,19 +145,18 @@ class Algolia_Command
             // Convert post data to Algolia record
             $record = bd324_convert_post_data($post);
 
-            $records[] = $record;
-            $count++;
+            /* Check record size does not exceed Algolia Max Record Size */
+            $sizeOk = BD616_check_record_size($record, $post_id);
+            if ($sizeOk ) {
+               // Add record to array
+               $records[] = $record;
+               $count++;
+            }
+
          }
 
-         /**
-          * Filter records before indexing
-          * @since 1.0.0
-          * @param array $records
-          * @param string $algolia_index_name
-          * @return array $records
-          */
-         // $records = apply_filters('bd324_filter_records_before_indexing', $records, $algolia_index_name, $algolia_index_language);
-         // $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
+         $records = apply_filters('bd324_filter_records_before_indexing', $records, $algolia_index_name, $algolia_index_language);
+         $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
          $indexGlobal->saveObjects($records);
 
          $paged++;
