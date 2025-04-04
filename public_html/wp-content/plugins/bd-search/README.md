@@ -1,6 +1,6 @@
 # BD Search Plugin
 
-## v2.0.0
+## v2.1.0
 
 ## Algolia keys
 
