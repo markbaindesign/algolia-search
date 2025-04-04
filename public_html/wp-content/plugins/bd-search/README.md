@@ -99,7 +99,7 @@ To update the global index,
 
 `wp algolia update`
 
-To update other indices, add the `--index` argument:
+To update other indices, add the `--index` argument (without `wp_` prefix):
 
 e.g. `wp algolia update --index=my-custom-index`
 
@@ -165,6 +165,16 @@ There is a default template. To load a custom template, use the `template` attri
 Templates can be customised using filters. 
 
 Note: IDs should match the custom JS for that template.
+
+# Modal
+
+If not required, the modal can be disabled by removing the action which registers the modal script.
+
+```
+remove_action('wp_footer', 'BD616__search_modal_overlay', 10);
+remove_action('wp_footer', 'BD616__search_modal', 10);
+remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_modal', 10);
+```
 
 ## Styles
 
@@ -288,9 +298,14 @@ Styles can be customized using CSS variables. The following variables are availa
 
 ## Custom default Global index
 
+By default, the plugin assumes an index called "global". 
+
+Scripts for this index are loaded by default, along with 2 views ("compact" and "advanced").
+
 To load a custom script for the default Global index, you should also remove the action which registers the default global script.
 
 ```
-remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_global');
+remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_global', 10);
+remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_global_advanced', 10);
 ```
 

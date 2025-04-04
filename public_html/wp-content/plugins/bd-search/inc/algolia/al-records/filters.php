@@ -9,7 +9,6 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_content_to
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_acf_cover_field_values_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_acf_location_field_values_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_tax_values_to_record.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_hierarchical_tax_values_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_org_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_wordpress_post_type_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_kf_add_wordpress_post_type_to_record.php';
@@ -19,4 +18,3 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_contributo
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_search_priority_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_featured_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_acf_location_field_values_to_record.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/algolia_add_hierarchical_tax_values_to_record.php';

@@ -11,3 +11,4 @@ require_once 'functions/get_script_handles.php';
 require_once 'functions/register_algolia_script_global.php';
 require_once 'functions/register_algolia_script_global_advanced.php';
 require_once 'functions/register_algolia_scripts.php';
+require_once 'functions/register_scripts_modal.php';

@@ -1,0 +1,9 @@
+/* Modal Window Header */
+
+.search-modal__header {
+   border-bottom: var(--bd-search-modal-header-border-bottom);
+}
+
+.search-modal__header h2 {
+   font-size: 20px;
+}

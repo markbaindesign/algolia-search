@@ -12,7 +12,7 @@ if(!function_exists('bd324_register_algolia_script_modal')):
       // Enqueue Modal Script
       wp_enqueue_script(
          'search-modal',
-         BD616__SCRIPTS_URL . '/custom/modal.js',
+         BD616__SCRIPTS_URL . '/custom/modal/modal.js',
          array(),
          BD616__PLUGIN_VERSION,
          array(
@@ -24,7 +24,7 @@ if(!function_exists('bd324_register_algolia_script_modal')):
       // Enqueue Modal Script Config
       wp_enqueue_script(
          'search-modal-config',
-         BD616__SCRIPTS_URL . '/custom/modal-config.js',
+         BD616__SCRIPTS_URL . '/custom/modal/modal-config.js',
          array('search-modal'),
          BD616__PLUGIN_VERSION,
          array(

@@ -1,0 +1,16 @@
+/* Styles for the Modal window */
+
+@import "header.css";
+@import "footer.css";
+
+:root {
+   --search-modal-padding: 14px;
+}
+
+/* Modal Window */
+.search-modal {
+   border: var(--bd-search-modal-border);
+   border-radius: var(--bd-search-modal-border-radius);
+   background-color: var(--bd-search-modal-background-color);
+   box-shadow: var(--bd-search-modal-box-shadow);
+}

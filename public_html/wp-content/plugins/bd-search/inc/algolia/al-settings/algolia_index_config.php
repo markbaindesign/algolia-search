@@ -7,11 +7,15 @@ if (!defined('ABSPATH')) {
 /* Set config for indices */
 function algolia_index_config($index, $algolia_full_index_name)
 {
+   // Vars
+   $algolia_full_index_name_underscores = str_replace('-', '_', $algolia_full_index_name); 
+   $forwardToReplicas_filter_name = 'bd324_filter_algolia_index_config_forwardToReplicas_' . $algolia_full_index_name_underscores;
+   
    $forwardToReplicas = apply_filters(
-      'bd324_filter_algolia_index_config_forwardToReplicas_' . str_replace('-', '_', $algolia_full_index_name),
+      $forwardToReplicas_filter_name,
       true,
       $index
-   );;
+   );
 
    $hitsPerPage = apply_filters(
       'bd324_filter_algolia_index_config_hitsPerPage_' . str_replace('-', '_', $algolia_full_index_name),

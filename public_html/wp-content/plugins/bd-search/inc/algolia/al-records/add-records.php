@@ -52,12 +52,6 @@ if (!function_exists('bd324_convert_post_data')):
          $post
       );
 
-      /* Check record size does not exceed Algolia Max Record Size */
-      $sizeOk = BD616_check_record_size($record, $post_id);
-      if ($sizeOk === false) {
-         return;
-      }
-
       return $record;
    }
 endif;

@@ -25,18 +25,10 @@ if (!function_exists('bd324_show_advanced_search_template')):
 
       // Enqueue Index Scripts
       $handle_script = bd324_get_script_handles($index, $template_name);
-      if (wp_script_is($handle_script, 'registered')) {
-         wp_enqueue_script($handle_script);
-      } else {
-         error_log(print_r($handle_script . ' is not registered! Cannot enqueue!', true));
-      }
+      bd324_enqueue_script_if_registered($handle_script);
 
       $handle_script_config = bd324_get_script_handles($index, $template_name, true);
-      if (wp_script_is($handle_script_config, 'registered')) {
-         wp_enqueue_script($handle_script_config);
-      } else {
-         error_log(print_r($handle_script_config . ' is not registered! Cannot enqueue!', true));
-      }
+      bd324_enqueue_script_if_registered($handle_script_config);
 
       // Open Wrapper
       $wrapper_open = apply_filters(

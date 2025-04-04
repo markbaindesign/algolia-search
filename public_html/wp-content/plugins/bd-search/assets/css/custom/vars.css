@@ -1,21 +1,22 @@
 
 :root {
    /* Modal */
-   --bd-search-modal-z-index: 20100;
-   --bd-search-modal-top: 10vh;
-   --bd-search-modal-height: auto;
-   --bd-search-modal-width: 80vw;
-   --bd-search-modal-max-width: 999px;
-   --bd-search-modal-max-height: 80vh;
-   --bd-search-modal-border: 1px solid #ddd;
-   --bd-search-modal-border-radius: 5px;
-   --bd-search-modal-box-shadow: none;
    --bd-search-modal-background-color: #eee;
-   --bd-search-modal-padding: 1rem;
-   --bd-search-modal-overlay-background-color: rgba(255, 255, 255, 0.75);
+   --bd-search-modal-border-radius: 5px;
+   --bd-search-modal-border: 1px solid #ddd;
+   --bd-search-modal-box-shadow: none;
    --bd-search-modal-footer-border-top: 1px solid rgba(0, 0, 0, 0.1);
-   --bd-search-modal-header-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
    --bd-search-modal-form-filters-display: block;
+   --bd-search-modal-header-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+   --bd-search-modal-height: auto;
+   --bd-search-modal-max-height: 80vh;
+   --bd-search-modal-max-width: 999px;
+   --bd-search-modal-overlay-background-color: rgba(255, 255, 255, 0.75);
+   --bd-search-modal-overlay-z-index: 20000;
+   --bd-search-modal-padding: 1rem;
+   --bd-search-modal-top: 10vh;
+   --bd-search-modal-width: 80vw;
+   --bd-search-modal-z-index: 20100;
 
    /* Form */
 

@@ -12,10 +12,10 @@ if (!defined('ABSPATH')) {
 if (!function_exists('bd324_filter_strip_tags_from_content')):
    function bd324_filter_strip_tags_from_content($content, WP_Post $post)
    {
-      /**
-       * Strip all tags and shortcodes
-       */
-      $content = wp_strip_all_tags(strip_shortcodes($content));
+
+      if (is_string($content)) {
+         $content = wp_strip_all_tags(strip_shortcodes($content));
+      }
       return $content;
    }
 endif;

@@ -29,10 +29,12 @@ function algolia_update_global_index($id, WP_Post $post, $update)
    $record = (array) apply_filters($filter_name, $post);
 
    /* Check record size does not exceed Algolia Max Record Size */
-   $sizeOk = BD616_check_record_size($record, $post_id);
-   if ($sizeOk === false) {
-      return $post;
-   }
+   if(function_exists('BD616_check_record_size')):
+      $sizeOk = BD616_check_record_size($record, $post_id);
+      if ($sizeOk === false) {
+         return $post;
+      }
+   endif;
 
    if (!isset($record['objectID'])) {
       $record['objectID'] = implode('#', [$post->post_type, $post->ID]);
