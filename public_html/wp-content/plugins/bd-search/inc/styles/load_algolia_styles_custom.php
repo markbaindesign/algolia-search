@@ -12,7 +12,7 @@ if (!function_exists('BD616__load_algolia_styles_custom')) :
    function BD616__load_algolia_styles_custom()
    {
       if (!is_admin()) {
-         wp_enqueue_style('search-styles', BD616__STYLES_URL .  '/custom/styles.css', '', BD616__PLUGIN_VERSION, 'all');
+         wp_enqueue_style('bd-search-styles-theme', BD616__STYLES_URL .  '/custom/theme/theme.css', '', BD616__PLUGIN_VERSION, 'all');
       }
    }
 endif;
