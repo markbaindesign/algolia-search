@@ -1,5 +1,5 @@
 // Global Search
-function algoliaSearchGlobalShortcode(algoliaIndexName = "wp_global") {
+function algoliaSearchAdvanced(algoliaIndexName = "wp_global") {
 
    if (document.getElementById("algolia-searchbox--global--shortcode") !== null) {
 
