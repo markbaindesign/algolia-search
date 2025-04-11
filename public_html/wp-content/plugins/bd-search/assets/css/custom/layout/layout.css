@@ -122,7 +122,6 @@
 .hits article .search__result__image {
    width: 50px;
    height: 50px;
-   background-color: #eee;
    overflow: hidden;
 }
 
@@ -138,16 +137,13 @@
 }
 
 .search__result__preheader {
-   display: inline-block;
    margin-bottom: 0.7rem;
 }
 .search__result__title {
-   display: inline-block;
    margin-bottom: 0.7rem;
 }
 
 .search__result__subheader {
-   display: inline-block;
    margin-bottom: 0.7rem;
 }
 

@@ -44,10 +44,6 @@
    background-color: var(--bd-search-form-results-card-bg-color);
 }
 
-.hits article .search__result__image {
-   background-color: #eee;
-}
-
 .hits article footer {
    font-size: 0.7rem;
 }
