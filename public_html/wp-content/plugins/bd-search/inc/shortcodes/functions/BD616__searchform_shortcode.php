@@ -40,7 +40,7 @@ if (!function_exists('BD616__searchform_shortcode')):
       }
 
       ob_start();
-      echo bd324_show_advanced_search_template($index, $template);
+      echo bd324_show_search_template($index, $template);
 
       $content =  ob_get_contents();
       ob_clean();
