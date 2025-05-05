@@ -1,6 +1,6 @@
 function modalOpenButton($trigger) {
 
-   // console.log("Modal Trigger: " + $trigger);
+   console.log("Modal Trigger: " + $trigger);
 
    // Get all the triggers
    let openButtons = document.querySelectorAll($trigger);

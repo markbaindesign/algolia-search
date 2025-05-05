@@ -1,6 +1,6 @@
 # BD Search Plugin
 
-## v2.0.0
+## v2.1.0
 
 ## Algolia keys
 
@@ -130,6 +130,8 @@ bd324_filter_get_post_types_for_index_{{index_name}}
 ```
 
 ### Change the trigger class for the Modal
+
+Default: `.bd-search-modal-trigger`
 
 ```
 bd324_filter_modal_trigger
