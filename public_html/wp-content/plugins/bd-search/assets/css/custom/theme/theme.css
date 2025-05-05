@@ -1,1 +1,7 @@
 @import "modal/modal.css";
+@import "vars.css";
+@import "reset.css";
+@import "helpers.css";
+@import "form.css";
+@import "results.css";
+@import "algolia.css";
