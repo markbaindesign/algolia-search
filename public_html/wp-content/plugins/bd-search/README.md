@@ -1,6 +1,7 @@
 # BD Search Plugin
 
-## v2.1.0
+## v2.2.0
+## By Bain Design
 
 ## Algolia keys
 
@@ -110,6 +111,12 @@ e.g. `wp algolia update --lang=cht`
 ## Filters
 
 The following filters can be used to modify the default Algolia index settings.
+
+### Add tax terms to the index.
+
+```
+bd324_filter_taxonomies_to_index_{{$index_name}}
+```
 
 ### Change the searchable attributes.
 
