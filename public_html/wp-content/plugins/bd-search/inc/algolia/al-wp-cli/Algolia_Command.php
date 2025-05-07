@@ -6,7 +6,9 @@ if (!defined('ABSPATH')) {
 
 class Algolia_Command
 {
-
+   /**
+    * Update the Algolia index
+    */
    public function update($args, $assoc_args)
    {
       /**
@@ -154,6 +156,11 @@ class Algolia_Command
             }
          }
 
+         // Add taxonomies to records
+         if (isset($assoc_args['verbose'])) {
+            WP_CLI::line('Adding taxonomies to records');
+         }
+         $records = apply_filters('bd324_filter_add_to_records_tax_terms', $records, $algolia_index_name, $algolia_index_language);
          $records = apply_filters('bd324_filter_records_before_indexing', $records, $algolia_index_name, $algolia_index_language);
          $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
          $indexGlobal->saveObjects($records);
