@@ -10,14 +10,33 @@ if(!defined('ABSPATH')) {
 if (!function_exists('bd324_algolia_add_to_records_tax_terms')) :
    function bd324_algolia_add_to_records_tax_terms(
       array $records,
-      $index_name
+      $index_name,
+      $algolia_index_language
    ) {
       if (!defined('WP_ENVIRONMENT_TYPE')) {
+         /** @disregard */
          WP_CLI::line(WP_ENVIRONMENT_TYPE);
          WP_CLI::error('Environment not defined, exiting!');
       }
+
+      if (isset($assoc_args['verbose'])) {
+         WP_CLI::line('Adding taxonomies to records');
+      }
+      
       // Get taxonomy terms
-      $taxonomies = bd324_get_taxonomies_for_index($index_name);
+      $taxonomies = apply_filters(
+         'bd324_filter_taxonomies_to_index_' . $index_name,
+         [], // Empty by default
+         $index_name,
+         $algolia_index_language
+      );
+
+      if (empty($taxonomies)) {
+         if (isset($assoc_args['verbose'])) {
+            WP_CLI::line('No taxonomies to add');
+         }
+         return $records;
+      }
 
       foreach ($taxonomies as $taxonomy) {
          if (isset($assoc_args['verbose'])) {
@@ -39,7 +58,7 @@ if (!function_exists('bd324_algolia_add_to_records_tax_terms')) :
                $record = (array) apply_filters(str_replace('-', '_', $term->taxonomy) . '_to_record', $term);
 
                /* Check record size does not exceed Algolia Max Record Size */
-               $sizeOk = BD616_check_record_size($record, $post_id);
+               $sizeOk = BD616_check_record_size($record, $term->term_id);
                if ($sizeOk === false) {
                   continue;
                }
@@ -57,4 +76,4 @@ if (!function_exists('bd324_algolia_add_to_records_tax_terms')) :
       return $records;
    }
 endif;
-add_filter('bd324_add_to_records_tax_terms', 'bd324_algolia_add_to_records_tax_terms', 10, 2);
+add_filter('bd324_filter_add_to_records_tax_terms', 'bd324_algolia_add_to_records_tax_terms', 10, 3);
