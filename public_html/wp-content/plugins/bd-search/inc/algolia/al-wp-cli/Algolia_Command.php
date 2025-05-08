@@ -56,21 +56,24 @@ class Algolia_Command
          $post_ids = [];
       }
 
-      /**
-       * Get full index name
-       * Includes table prefix & language parameter
-       */
-      $algolia_full_index_name = apply_filters(
-         'bd324_get_full_index_name',
-         $algolia_index_name,
-         $algolia_index_language,
-      );
+      if (!empty($post_ids)) {
+         if (isset($assoc_args['verbose'])) {
+            WP_CLI::line('Indexing Post ID(s): [' . implode(", ", $post_ids) . ']');
+         }
+         // Loop through each post ID and update the Algolia record
+         foreach ($post_ids as $post_id) {
+            $post = get_post($post_id);
+            if ($post instanceof WP_Post) {
+               bd324_update_algolia_record($post_id, $post);
+            } else {
+               WP_CLI::warning("Post with ID $post_id not found or is not a valid WP_Post object.");
+            }
+         }
+      }
 
-      $algoliaIndex = $algolia->initIndex($algolia_full_index_name);
-      $algoliaIndex->clearObjects()->wait();
-
-      $paged = 1;
-      $count = 0;
+      if (empty($assoc_args['index'])) {
+         return;
+      }
 
       /* Get post types */
       $post_types = bd324_get_post_types_for_index($algolia_index_name);
@@ -79,89 +82,16 @@ class Algolia_Command
          WP_CLI::line('Indexing Post Types: [' . implode(", ", $post_types) . ']');
       }
 
-      if (apply_filters('wpml_default_language', NULL) !== NULL) :
-         // Switch language
-         do_action('wpml_switch_language', $algolia_index_language);
-         if (isset($assoc_args['verbose'])) {
-            WP_CLI::line('Switching language to [' . $algolia_index_language . ']');
-         }
-      endif;
+      $update_index = bd324_algolia_update_index(
+         $algolia_index_name,
+         $algolia_index_language,
+         $post_types,
+         $post_ids,
+      );
 
-      do {
-
-         // Get query args
-         if (function_exists('bd324_get_args_for_query')):
-            $args = bd324_get_args_for_query(
-               $algolia_index_name,
-               $algolia_index_language,
-               $post_types,
-               $post_ids,
-               $paged
-            );
-         endif;
-
-         $posts = new WP_Query($args);
-
-         if (!$posts->have_posts()) {
-            break;
-         }
-
-         $records = [];
-
-         /* Add posts to records */
-         foreach ($posts->posts as $post) {
-
-            $record = [];
-
-            // Check post is allowed in the index
-            if (!BD616__is_post_allowed($post->ID, get_post_type($post->ID), $algolia_index_name)) {
-               continue;
-            }
-
-            // Convert post data to Algolia record
-            $record = bd324_convert_post_data($post);
-
-            /* Check record size does not exceed Algolia Max Record Size */
-            if (!BD616_check_record_size($record, $post->ID)) {
-               continue;
-            };
-
-            
-            /* Add record to array */
-            $records[] = $record;
-            $count++;
-         }
-         
-         /* Add taxonomies to records */
-         $records = apply_filters(
-            'bd324_filter_add_to_records_tax_terms', 
-            $records, 
-            $algolia_index_name, 
-            $algolia_index_language
-         );
-         
-         /* Filter records */
-         $records = apply_filters(
-            'bd324_filter_records_before_indexing', 
-            $records, 
-            $algolia_index_name, 
-            $algolia_index_language
-         );
-         
-         $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
-
-         /* Save records to the index */
-         $algoliaIndex->saveObjects($records);
-
-         $paged++;
-      } while (true);
-
-      // Set settings
-      algolia_index_config($algoliaIndex, $algolia_full_index_name);
-
-      $algolia_full_index_name = WP_CLI::colorize("%Y" . $algolia_full_index_name . "%n");
-      $count_display = WP_CLI::colorize("%B" . $count . "%n");
-      if ($count > 0) {
+      $algolia_full_index_name = WP_CLI::colorize("%Y" . $update_index['algolia_full_index_name'] . "%n");
+      $count_display = WP_CLI::colorize("%B" . $update_index['count'] . "%n");
+      if ($update_index['count'] > 0) {
          WP_CLI::success("[$algolia_full_index_name] $count_display entries reindexed");
       } else {
          WP_CLI::warning("[$algolia_full_index_name] $count_display entries reindexed ");

@@ -8,3 +8,5 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/al-updates/bd324_update_algolia_r
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-updates/algolia_update_global_index.php';
 require_once 'get_posts_for_update.php';
 require_once 'get_args_for_query.php';
+// require_once 'update_records.php';
+require_once 'update_index.php';
