@@ -27,7 +27,6 @@ class Algolia_Command
       } else {
          $skip_prompt = 'no';
       }
-      // error_log(print_r($skip_prompt, true));
 
       // Display environment data
       WP_CLI::runcommand('algolia check_env');
@@ -112,6 +111,8 @@ class Algolia_Command
          /* Add posts to records */
          foreach ($posts->posts as $post) {
 
+            $record = [];
+
             // Check post is allowed in the index
             if (!BD616__is_post_allowed($post->ID, get_post_type($post->ID), $algolia_index_name)) {
                continue;
@@ -125,11 +126,12 @@ class Algolia_Command
                continue;
             };
 
+            
             /* Add record to array */
             $records[] = $record;
             $count++;
          }
-
+         
          /* Add taxonomies to records */
          $records = apply_filters(
             'bd324_filter_add_to_records_tax_terms', 
@@ -137,7 +139,7 @@ class Algolia_Command
             $algolia_index_name, 
             $algolia_index_language
          );
-
+         
          /* Filter records */
          $records = apply_filters(
             'bd324_filter_records_before_indexing', 

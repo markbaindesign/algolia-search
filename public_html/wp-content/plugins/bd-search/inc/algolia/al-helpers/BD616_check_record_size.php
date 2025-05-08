@@ -29,7 +29,6 @@ if (!function_exists('BD616_check_record_size')) :
       $max_length = defined('ALGOLIA_MAX_RECORD_LENGTH') ? ALGOLIA_MAX_RECORD_LENGTH : 10000;
       if ($record_size > $max_length) {
          error_log(sprintf("Record #%d Exceeds Maximum Size Per Record (size=%d/%d)", $post_id, $record_size, $max_length));
-         // error_log(print_r($record, true));
          return false;
       }
       error_log(sprintf("Record #%d is good (size=%d/%d)", $post_id, $record_size, $max_length));

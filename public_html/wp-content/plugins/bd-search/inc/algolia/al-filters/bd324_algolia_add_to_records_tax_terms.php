@@ -63,9 +63,7 @@ if (!function_exists('bd324_algolia_add_to_records_tax_terms')) :
                $record = (array) apply_filters(str_replace('-', '_', $term->taxonomy) . '_to_record', $term);
 
                /* Check record size does not exceed Algolia Max Record Size */
-               error_log(sprintf("Checking term record #%d for size...", $term->term_id));
                $sizeOk = BD616_check_record_size($record, $term->term_id);
-               error_log(sprintf("Result: %s", $sizeOk));
                if ($sizeOk === false) {
                   continue;
                }

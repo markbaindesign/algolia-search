@@ -32,6 +32,14 @@ if (!function_exists('bd324_convert_post_data')):
          $post
       );
 
+      /* Debug */
+      $disallowed_post_types = [
+         // 'post'
+      ];
+      if (in_array($post_type, $disallowed_post_types, true)) {
+         return $record;
+      }
+
       // Add ID if record doesn't already have one.
       if (!isset($record['objectID'])) {
          $record['objectID'] = implode('#', [$post->post_type, $post->ID]);
@@ -44,9 +52,6 @@ if (!function_exists('bd324_convert_post_data')):
        * @return  array    $record
        */
       $filter_name = str_replace('-', '_', $post_type) . '_to_record';
-      error_log(print_r($post->post_type . $post->ID, true));
-      error_log(print_r($filter_name, true));
-      error_log(print_r($post, true));
 
       // Apply filter
       $record = apply_filters(
@@ -54,7 +59,6 @@ if (!function_exists('bd324_convert_post_data')):
          $record,
          $post
       );
-      error_log(print_r($record, true));
 
       return $record;
    }
