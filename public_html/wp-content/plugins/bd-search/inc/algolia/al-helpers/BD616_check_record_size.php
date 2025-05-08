@@ -32,6 +32,8 @@ if (!function_exists('BD616_check_record_size')) :
          // error_log(print_r($record, true));
          return false;
       }
+      error_log(sprintf("Record #%d is good (size=%d/%d)", $post_id, $record_size, $max_length));
+
       return true;
    }
 endif;

@@ -22,7 +22,7 @@ if (!function_exists('bd324_algolia_add_to_records_tax_terms')) :
       if (isset($assoc_args['verbose'])) {
          WP_CLI::line('Adding taxonomies to records');
       }
-      
+
       // Get taxonomy terms
       $taxonomies = apply_filters(
          'bd324_filter_taxonomies_to_index_' . $index_name,
@@ -48,7 +48,12 @@ if (!function_exists('bd324_algolia_add_to_records_tax_terms')) :
             'hide_empty'   => false,
          );
 
-         $terms = get_terms($args);
+         $terms = apply_filters(
+            'bd324_filter_tax_terms_for_indexing',
+            get_terms($args),
+            $index_name,
+            $algolia_index_language
+         );
 
          if (!empty($terms) && !is_wp_error($terms)) {
             foreach ($terms as $term) {
@@ -58,7 +63,9 @@ if (!function_exists('bd324_algolia_add_to_records_tax_terms')) :
                $record = (array) apply_filters(str_replace('-', '_', $term->taxonomy) . '_to_record', $term);
 
                /* Check record size does not exceed Algolia Max Record Size */
+               error_log(sprintf("Checking term record #%d for size...", $term->term_id));
                $sizeOk = BD616_check_record_size($record, $term->term_id);
+               error_log(sprintf("Result: %s", $sizeOk));
                if ($sizeOk === false) {
                   continue;
                }

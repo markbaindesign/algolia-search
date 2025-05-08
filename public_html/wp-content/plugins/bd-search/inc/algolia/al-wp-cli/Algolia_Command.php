@@ -94,7 +94,7 @@ class Algolia_Command
          WP_CLI::line('Indexing Post Types: [' . implode(", ", $post_types) . ']');
       }
 
-      if (function_exists('wpml_switch_language')):
+      if (apply_filters('wpml_default_language', NULL) !== NULL) :
          // Switch language
          do_action('wpml_switch_language', $algolia_index_language);
          if (isset($assoc_args['verbose'])) {
@@ -134,36 +134,36 @@ class Algolia_Command
             $post_type = get_post_type($post_id);
 
             // Check post is allowed
-            if (function_exists('BD616__is_post_allowed')):
-               if (!BD616__is_post_allowed($post_id, $post_type, $algolia_index_name)) {
-                  // continue;
-               }
-            endif;
+            // if (function_exists('BD616__is_post_allowed')):
+            //    if (!BD616__is_post_allowed($post_id, $post_type, $algolia_index_name)) {
+            //       // continue;
+            //    }
+            // endif;
 
-            if (isset($assoc_args['verbose'])) {
-               WP_CLI::line('Indexing [' . $post->post_type . '][' . $post->post_title . ']');
-            }
+            // if (isset($assoc_args['verbose'])) {
+            //    WP_CLI::line('Indexing [' . $post->post_type . '][' . $post->post_title . ']');
+            // }
 
             // Convert post data to Algolia record
             $record = bd324_convert_post_data($post);
 
             /* Check record size does not exceed Algolia Max Record Size */
-            $sizeOk = BD616_check_record_size($record, $post_id);
-            if ($sizeOk) {
-               // Add record to array
-               $records[] = $record;
-               $count++;
-            }
+            // error_log(sprintf("Checking record #%d for size...", $post_id));
+            // $sizeOk = BD616_check_record_size($record, $post_id);
+            // if ($sizeOk) {
+            //    error_log(sprintf("Record #%d passes size check", $post_id));
+            //    // Add record to array
+            //    $records[] = $record;
+            //    $count++;
+            // }
+            $records[] = $record;
          }
 
          // Add taxonomies to records
-         if (isset($assoc_args['verbose'])) {
-            WP_CLI::line('Adding taxonomies to records');
-         }
-         $records = apply_filters('bd324_filter_add_to_records_tax_terms', $records, $algolia_index_name, $algolia_index_language);
-         $records = apply_filters('bd324_filter_records_before_indexing', $records, $algolia_index_name, $algolia_index_language);
-         $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
-         $indexGlobal->saveObjects($records);
+         // $records = apply_filters('bd324_filter_add_to_records_tax_terms', $records, $algolia_index_name, $algolia_index_language);
+         // $records = apply_filters('bd324_filter_records_before_indexing', $records, $algolia_index_name, $algolia_index_language);
+         // $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
+         // $indexGlobal->saveObjects($records);
 
          $paged++;
       } while (true);
@@ -173,7 +173,11 @@ class Algolia_Command
 
       $algolia_full_index_name = WP_CLI::colorize("%Y" . $algolia_full_index_name . "%n");
       $count = WP_CLI::colorize("%B" . $count . "%n");
-      WP_CLI::success("$count entries reindexed [$algolia_full_index_name]");
+      if ($post_count === $count) {
+         WP_CLI::success("$count/$post_count entries reindexed [$algolia_full_index_name]");
+      } else {
+         WP_CLI::warning("$count/$post_count entries reindexed [$algolia_full_index_name]");
+      }
    }
 
    /**

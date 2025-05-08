@@ -32,7 +32,9 @@ function BD616_add_tax_term_archive_pages($algolia_index_name, $algolia_index_la
    /**
     * Before running query, switch language
     */
-   do_action('wpml_switch_language', $algolia_index_language);
+   if (apply_filters('wpml_default_language', NULL) !== NULL) :
+      do_action('wpml_switch_language', $algolia_index_language);
+   endif;
 
    $term_records = [];
 
