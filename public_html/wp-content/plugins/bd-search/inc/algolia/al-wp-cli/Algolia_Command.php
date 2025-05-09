@@ -19,82 +19,101 @@ class Algolia_Command
        * Pass the $lang and $index params e.g. --lang=chs
        *
        */
-      global $algolia;
 
-      // Skip prompt
-      if (isset($assoc_args['skip-prompt'])) {
-         $skip_prompt = 'yes';
-      } else {
-         $skip_prompt = 'no';
+      // Vars
+      $algolia_index_name = 'global';
+      $algolia_index_language = '';
+      $post_ids = [];
+      if (isset($assoc_args['verbose'])) {
+         // Display environment data
+         WP_CLI::runcommand('algolia check_env');
       }
 
-      // Display environment data
-      WP_CLI::runcommand('algolia check_env');
-
       // Get user confirmation
-      // WP_CLI::confirm("Are you sure you want to continue?", array('yes'));
+      if (!isset($assoc_args['skip-prompt'])) {
+         WP_CLI::confirm("Are you sure you want to continue?", array('yes'));
+      }
 
       // Get index name
       if (isset($assoc_args['index'])) {
          $algolia_index_name = $assoc_args['index'];
-      } else {
-         $algolia_index_name = 'global';
       }
 
       // Get language
       if (isset($assoc_args['lang'])) {
          $algolia_index_language = $assoc_args['lang'];
-      } else {
-         $algolia_index_language = '';
       }
 
       // Get Post IDs to index
       if (isset($assoc_args['id'])) {
          $algolia_ids_string = $assoc_args['id'];
          $post_ids = explode(',', $algolia_ids_string);
-      } else {
-         $post_ids = [];
       }
 
+      /**
+       * POSTS
+       * 
+       * Update Algolia index for specific post IDs.
+       */
       if (!empty($post_ids)) {
          if (isset($assoc_args['verbose'])) {
             WP_CLI::line('Indexing Post ID(s): [' . implode(", ", $post_ids) . ']');
          }
          // Loop through each post ID and update the Algolia record
+         $update_index = []; // To record the number of records indexed
+         $update_index['count'] = 0;
          foreach ($post_ids as $post_id) {
             $post = get_post($post_id);
             if ($post instanceof WP_Post) {
-               bd324_update_algolia_record($post_id, $post);
+               $update = bd324_update_algolia_record($post_id, $post);
+               if ($update) {
+                  $update_index['count']++;
+               }
             } else {
                WP_CLI::warning("Post with ID $post_id not found or is not a valid WP_Post object.");
             }
          }
+         $count_display = WP_CLI::colorize("%B" . $update_index['count'] . "%n");
+         if ($update_index['count'] === 0) {
+            WP_CLI::warning("$count_display entries reindexed ");
+         } elseif ($update_index['count'] === 1) {
+            WP_CLI::success("$count_display entry reindexed ");
+         } else {
+            WP_CLI::success("$count_display entries reindexed");
+         }
       }
 
-      if (empty($assoc_args['index'])) {
-         return;
-      }
+      /**
+       * INDEX
+       *
+       * Update the Algolia index for all post types.
+       * Pass the $lang and $index params e.g. --lang=chs
+       */
+      if (!empty($assoc_args['index'])) {
+         /* Get post types */
+         $post_types = bd324_get_post_types_for_index($algolia_index_name);
 
-      /* Get post types */
-      $post_types = bd324_get_post_types_for_index($algolia_index_name);
+         if (isset($assoc_args['verbose'])) {
+            WP_CLI::line('Indexing Post Types: [' . implode(", ", $post_types) . ']');
+         }
 
-      if (isset($assoc_args['verbose'])) {
-         WP_CLI::line('Indexing Post Types: [' . implode(", ", $post_types) . ']');
-      }
+         $update_index = bd324_algolia_update_index(
+            $algolia_index_name,
+            $algolia_index_language,
+            $post_types,
+            $post_ids,
+         );
+         /**
+          * Display the number of records indexed
+          */
+         $algolia_full_index_name = WP_CLI::colorize("%Y" . $update_index['algolia_full_index_name'] . "%n");
 
-      $update_index = bd324_algolia_update_index(
-         $algolia_index_name,
-         $algolia_index_language,
-         $post_types,
-         $post_ids,
-      );
-
-      $algolia_full_index_name = WP_CLI::colorize("%Y" . $update_index['algolia_full_index_name'] . "%n");
-      $count_display = WP_CLI::colorize("%B" . $update_index['count'] . "%n");
-      if ($update_index['count'] > 0) {
-         WP_CLI::success("[$algolia_full_index_name] $count_display entries reindexed");
-      } else {
-         WP_CLI::warning("[$algolia_full_index_name] $count_display entries reindexed ");
+         $count_display = WP_CLI::colorize("%B" . $update_index['count'] . "%n");
+         if ($update_index['count'] > 0) {
+            WP_CLI::success("[$algolia_full_index_name] $count_display entries reindexed");
+         } else {
+            WP_CLI::warning("[$algolia_full_index_name] $count_display entries reindexed ");
+         }
       }
    }
 

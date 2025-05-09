@@ -15,8 +15,9 @@ if (!function_exists('bd324_algolia_update_index')):
       $algolia_index_name,
       $algolia_index_language,
       $post_types,
-      $post_ids,
+      $post_ids
    ) {
+
       global $algolia;
       $update_index = []; // To record the number of records indexed
       $update_index['count'] = 0;
