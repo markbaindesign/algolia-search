@@ -1,6 +1,6 @@
 # BD Search Plugin
 
-## v2.2.0
+## v2.3.0
 ## By Bain Design
 
 ## Algolia keys
