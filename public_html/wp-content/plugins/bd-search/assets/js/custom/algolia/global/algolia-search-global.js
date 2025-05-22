@@ -5,7 +5,6 @@ function algoliaSearchGlobal(algoliaIndexName = "wp_global") {
 
       // Translation Object
       var translationObject = translations_object_algolia_search_global;
-      // console.log(translationObject);
 
       const searchGlobal = instantsearch({
          indexName: algoliaIndexName,

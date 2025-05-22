@@ -1,2 +1,5 @@
-// Load modal
-modalOpenButton(trigger_modal);
+document.addEventListener('DOMContentLoaded', function() {
+   modalOpenButton(trigger_modal);
+   modalCloseOverlay();
+   modalCloseButton();
+});
