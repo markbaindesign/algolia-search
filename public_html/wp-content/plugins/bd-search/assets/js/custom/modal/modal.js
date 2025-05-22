@@ -1,18 +1,12 @@
 function modalOpenButton($trigger) {
 
-   console.log("Modal Trigger: " + $trigger);
-
    // Get all the triggers
-   let openButtons = document.querySelectorAll($trigger);
+   let openButtons = document.querySelectorAll(String($trigger));
 
-   if (openButtons) {
-      var openButtonsArray = Array.from(openButtons).entries();
-      for (let [index, openButton] of openButtonsArray) {
-         openButton.href="javascript:void(0)";
-         openButton.classList.add('jsModalSearchTrigger');
-         openButton.addEventListener("click", modalOpen);
-      };
-   }
+   openButtons.forEach((openButton, index) => {
+      openButton.setAttribute('href', 'javascript:void(0)');
+      openButton.addEventListener("click", modalOpen);
+   });
 }
 
 function modalCloseButton() {
@@ -20,13 +14,10 @@ function modalCloseButton() {
    closeButton.addEventListener("click", modalClose);
 }
 
-modalCloseButton();
-
 function modalCloseOverlay() {
    let closeOverlay = document.getElementById('search_modal_overlay');
    closeOverlay.addEventListener("click", modalClose);
 }
-modalCloseOverlay();
 
 function modalClose(event) {
    const html = document.documentElement;

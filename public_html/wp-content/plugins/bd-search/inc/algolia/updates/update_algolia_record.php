@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 /**
  * Update Algolia Record
  * 
- * Updates record in Algolia (all fields, all post types).
+ * Updates single record in Algolia (all fields, all post types).
  * 
  * @param $post_id
  * @param WP_Post
@@ -30,7 +30,6 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
    if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
       return;
    }
-
 
    // Convert post data to Algolia record
    $record = bd324_convert_post_data($post);
@@ -58,11 +57,11 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
       // Remove any drafts or password-protected posts from the index
       if ('publish' !== $post_status || !empty($post->post_password)) {
          $index->deleteObject($record['objectID']);
+         return false;
       } else {
          $index->saveObject($record);
+         return true;
       }
    }
-
-   return;
 }
 add_action('save_post', 'bd324_update_algolia_record', 10, 3);

@@ -19,5 +19,5 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/al-filters/al-filters.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/al-helpers.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/al-records.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-settings/al-settings.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/al-updates/al-updates.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/updates.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-wp-cli/al-wp-cli.php';

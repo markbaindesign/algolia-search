@@ -41,7 +41,7 @@ if (!function_exists('bd324_get_args_for_query')):
       // Set the number of posts per page for the query
       $posts_per_page = apply_filters(
          'bd324_filter_posts_per_page',
-         300,
+         100,
          $algolia_index_name,
          $algolia_index_language
       );

@@ -32,6 +32,14 @@ if (!function_exists('bd324_convert_post_data')):
          $post
       );
 
+      /* Debug */
+      $disallowed_post_types = [
+         // 'post'
+      ];
+      if (in_array($post_type, $disallowed_post_types, true)) {
+         return $record;
+      }
+
       // Add ID if record doesn't already have one.
       if (!isset($record['objectID'])) {
          $record['objectID'] = implode('#', [$post->post_type, $post->ID]);
