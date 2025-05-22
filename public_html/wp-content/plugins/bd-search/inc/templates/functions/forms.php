@@ -17,7 +17,9 @@ if (!function_exists('BD616__get_search_form')) :
       $form = '';
 
       // Scripts
-      algolia_enqueue_default_scripts();
+      if(function_exists('algolia_enqueue_default_scripts')):
+         algolia_enqueue_default_scripts();
+      endif;
       $script = 'algolia-search-' . $index;
       $config_script = 'algolia-search-' . $index . '-config';
 
@@ -69,8 +71,7 @@ if (!function_exists('BD616__get_search_form')) :
       <?php echo bd324_get_modal_footer(); ?>
 
 <?php
-      $form =  ob_get_contents();
-      ob_clean();
+      $form = ob_get_clean();
 
       return $form;
    }
