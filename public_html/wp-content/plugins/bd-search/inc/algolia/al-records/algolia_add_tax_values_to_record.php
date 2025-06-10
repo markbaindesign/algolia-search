@@ -15,9 +15,16 @@ function algolia_add_tax_values_to_record($record, $post_id, $tax)
    if (!$terms) {
       return $record;
    }
-   $term = reset($terms);
-   isset($term->name) ? $term_data['display'] = $term->name : '';
-   isset($term->slug) ? $term_data['name'] = $term->slug : '';
+   foreach ($terms as $term) {
+      $item = array();
+      if (isset($term->name)) {
+         $item['display'] = $term->name;
+      }
+      if (isset($term->slug)) {
+         $item['name'] = $term->slug;
+      }
+      $term_data[] = $item;
+   }
 
    $record[$tax] = $term_data;
 
