@@ -24,13 +24,14 @@ class Algolia_Command
       $algolia_index_name = 'global';
       $algolia_index_language = '';
       $post_ids = [];
-      if (isset($assoc_args['verbose'])) {
+
+      if (!isset($assoc_args['silent'])) {
          // Display environment data
          WP_CLI::runcommand('algolia check_env');
       }
 
       // Get user confirmation
-      if (!isset($assoc_args['skip-prompt'])) {
+      if (!isset($assoc_args['silent'])) {
          WP_CLI::confirm("Are you sure you want to continue?", array('yes'));
       }
 
