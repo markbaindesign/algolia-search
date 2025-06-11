@@ -34,6 +34,11 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
    // Convert post data to Algolia record
    $record = bd324_convert_post_data($post);
 
+   /* Check record size does not exceed Algolia Max Record Size */
+   if (!BD616_check_record_size($record, $post->ID)) {
+      return false;
+   };
+
    // Get an array of index names
    // ***************************
    // Add filter to include project-specific
