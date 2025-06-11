@@ -37,4 +37,4 @@ if (!function_exists('bd324_filter_truncate_content')):
       return $content;
    }
 endif;
-// add_filter('bd_filter_add_field_content', 'bd324_filter_truncate_content', 90, 2); // Run after all the others
+add_filter('bd_filter_add_field_content', 'bd324_filter_truncate_content', 90, 2); // Run after all the others
