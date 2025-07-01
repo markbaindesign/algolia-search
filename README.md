@@ -2,7 +2,7 @@
 
 ## By Bain Design
 
-### Version: 2.5.0
+### Version: 2.7.0
 
 ## Run Composer
 
