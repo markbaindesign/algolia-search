@@ -60,12 +60,10 @@ function algolia_index_config($index, $algolia_full_index_name)
          'hitsPerPage' => $hitsPerPage,
          'attributesForFaceting' => $attributesForFaceting,
          'attributesToSnippet' => $attributesToSnippet,
+         'ranking' => $ranking
       ],
       [
          'forwardToReplicas' => $forwardToReplicas
-      ],
-      [
-         'ranking' => $ranking
       ]
    );
 }
