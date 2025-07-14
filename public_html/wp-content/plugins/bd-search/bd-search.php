@@ -27,7 +27,7 @@ if(
 
 define('BD616__PLUGIN_FILE', __FILE__);
 define('BD616__PLUGIN_HANDLE', 'bd-algolia-search');
-define('BD616__PLUGIN_NAME', __('BD Algolia Search', '_bd_algolia_search_plugin'));
+define('BD616__PLUGIN_NAME', 'BD Algolia Search');
 define('BD616__PLUGIN_VERSION', '2.6.0');
 define('BD616__PLUGIN_DIR', untrailingslashit(dirname(BD616__PLUGIN_FILE)));
 define('BD616__PLUGIN_DIR_NAME', untrailingslashit(dirname(plugin_basename(BD616__PLUGIN_FILE))));
