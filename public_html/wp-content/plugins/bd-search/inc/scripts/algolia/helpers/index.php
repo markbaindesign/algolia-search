@@ -15,3 +15,8 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/get_algolia_indexNames.ph
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/BD616_check_record_size.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/BD616__is_post_allowed.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/bd324_handle_big_data_in_value.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/remove-divi.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/strip-tags.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/truncate-content.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/get_args_for_query.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/add_language_suffix_to_index_name.php';

@@ -19,3 +19,5 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/records/add_to_record/add_to_reco
 require_once BD616__PLUGIN_DIR . '/inc/algolia/records/add_to_record/add_wordpress_post_type_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/records/add_to_record/add_wordpress_post_type_kf_to_record.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/records/add_to_record/add_to_record_tax_terms.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/records/add_to_record/add-featured-to-record.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/records/add_to_record/add-records.php';
