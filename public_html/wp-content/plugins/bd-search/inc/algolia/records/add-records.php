@@ -3,11 +3,6 @@
 if (!defined('ABSPATH')) {
    die('Invalid request, dude.');
 }
-
-require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/al-post-types/add-post-types.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/al-add-fields/add-fields.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/al-filters/add-filters.php';
-
 /**
  * Convert post data to Algolia record
  *

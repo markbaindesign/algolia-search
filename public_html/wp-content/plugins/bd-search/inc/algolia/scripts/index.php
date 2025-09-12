@@ -6,4 +6,4 @@ if (!defined('ABSPATH')) {
 }
 
 /* Load default scripts */
-require_once BD616__PLUGIN_DIR . '/inc/algolia/scripts/algolia-scripts.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/scripts/scripts.php';

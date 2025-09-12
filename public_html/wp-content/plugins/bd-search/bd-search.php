@@ -40,7 +40,7 @@ define('BD616__STYLES_URL', BD616__PLUGIN_URL . 'assets/css');
 define('BD616__IMAGES_URL', BD616__PLUGIN_URL . 'assets/images');
 
 /* Includes */
-require_once BD616__PLUGIN_DIR . '/inc/inc.php';
+require_once BD616__PLUGIN_DIR . '/inc/index.php';
 
 // Load plugin textdomain
 function BD616_load_textdomain()

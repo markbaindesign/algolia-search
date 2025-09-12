@@ -20,4 +20,4 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/al-helpers.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-records/al-records.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-settings/al-settings.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/index.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/al-wp-cli/al-wp-cli.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/wp-cli/index.php';

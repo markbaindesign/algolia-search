@@ -10,13 +10,13 @@ $includes = [
    ...array_map(
       fn($path) => BD616__PLUGIN_DIR . $path,
       [
-         '/inc/admin/admin.php',
-         '/inc/algolia/algolia.php',
+         '/inc/admin/index.php',
+         '/inc/algolia/index.php',
          '/inc/scripts/index.php',
-         '/inc/shortcodes/shortcodes.php',
+         '/inc/shortcodes/index.php',
          '/inc/styles/index.php',
          '/inc/wpml.php',
-         '/inc/templates/templates.php',
+         '/inc/templates/index.php',
       ]
    )
 ];
