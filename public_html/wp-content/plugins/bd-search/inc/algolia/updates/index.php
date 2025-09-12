@@ -5,6 +5,5 @@ if (!defined('ABSPATH')) {
 }
 
 require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/helpers/index.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/update_algolia_record.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/update_global_index.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/update_algolia_index.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/update_record.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/update_index.php';
