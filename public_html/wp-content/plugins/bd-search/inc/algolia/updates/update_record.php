@@ -23,6 +23,7 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
    }
    $post_type = get_post_type($post_id);
    $post_status = get_post_status($post_id);
+   $algolia_index_language = '';
 
    /**
     * Don't update record if this is a revision or autosave
@@ -44,18 +45,30 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
    // Add filter to include project-specific
    // index names.
    $index_names = apply_filters(
-      'bd324_filter_index_names',
+      'bd324_filter_index_names_for_post_type_' . str_replace('-', '_', $post_type),
       array('global'), // Default
       $post_type
    );
+
+   if (empty($index_names) || !is_array($index_names)) {
+      return false;
+   }
 
    /**
     * Loop over the array of indices
     */
    foreach ($index_names as $name) {
+      /**
+       * Get full index name
+       * Includes table prefix & language parameter
+       */
+      $algolia_full_index_name = apply_filters(
+         'bd324_get_full_index_name',
+         $algolia_index_name,
+         $algolia_index_language,
+      );
 
-      // Get the full name of the index (with prefix)
-      $nameFull = apply_filters('bd324_filter_index_name', $name);
+      $algoliaIndex = $algolia->initIndex($algolia_full_index_name);
 
       $index = $algolia->initIndex($nameFull);
 

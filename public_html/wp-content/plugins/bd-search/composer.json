@@ -1,4 +1,12 @@
 {
+   "name": "bd324/search-plugin",
+   "description": "Algolia Search plugin",
+   "type": "wordpress-plugin",
+   "autoload": {
+      "psr-4": {
+         "BD324\\Search\\": "src/"
+      }
+   },
    "require": {
       "algolia/algoliasearch-client-php": "3.3.2"
    }
