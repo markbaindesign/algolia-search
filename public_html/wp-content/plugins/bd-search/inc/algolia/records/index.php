@@ -7,4 +7,3 @@ if (!defined('ABSPATH')) {
 require_once BD616__PLUGIN_DIR . '/inc/algolia/records/add-to-record/index.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/records/post-types/index.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/records/add-fields/index.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/records/filters/index.php';

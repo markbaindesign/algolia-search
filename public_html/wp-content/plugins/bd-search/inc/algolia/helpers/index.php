@@ -8,7 +8,6 @@ require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/algolia_post_index_name.p
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/bd324_algolia_get_full_index_name.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/bd324_get_algolia_index_name.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/bd324_get_post_types_for_index.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/bd324_get_taxonomies_for_index.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/get_algolia_indexName.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/get_algolia_index_post_types.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/get_algolia_indexNames.php';

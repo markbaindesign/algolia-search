@@ -39,7 +39,9 @@ function algolia_add_tax_values_to_record_single_value($record, $post_id, $tax)
 {
    // Get first item in post terms
    $terms = wp_get_post_terms($post_id, $tax);
-   if (empty($terms) || !isset($terms[0])) {
+
+
+   if (is_wp_error($terms) || empty($terms) || !isset($terms[0])) {
       return $record;
    }
    $term = $terms[0];
