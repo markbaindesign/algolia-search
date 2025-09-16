@@ -13,7 +13,6 @@ $includes = [
          '/inc/algolia/index.php',
          '/inc/scripts/index.php',
          '/inc/shortcodes/index.php',
-         '/inc/styles/index.php',
          '/inc/wpml.php',
          '/inc/templates/index.php',
       ]
