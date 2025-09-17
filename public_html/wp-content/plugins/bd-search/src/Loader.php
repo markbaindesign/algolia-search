@@ -6,8 +6,10 @@ use Algolia\AlgoliaSearch\SearchClient;
 use BD324\Search\Admin\Page;
 use BD324\Search\Admin\Metaboxes;
 use BD324\Search\Frontend\Assets\Styles;
-use BD324\Search\Frontend\Assets\Scripts;
+use BD324\Search\Frontend\Assets\Scripts\VendorScript;
+use BD324\Search\Frontend\Assets\Scripts\CustomScript;
 use BD324\Search\CLI\IndexCommand;
+use BD324\Search\Helpers\ArrayHelpers;
 
 class Loader
 {
@@ -27,9 +29,13 @@ class Loader
         $frontendStyles = new Styles();
         $frontendStyles->register();
 
-        // Frontend: Scripts
-        $frontendScripts = new Scripts();
-        $frontendScripts->register();
+        // Frontend: Vendor Scripts
+        $vendorScripts = new VendorScript();
+        $vendorScripts->register();
+
+        // Frontend: Custom Scripts
+        $customScripts = new CustomScript();
+        $customScripts->register();
 
         // CLI
         if (defined('WP_CLI') && WP_CLI) {

@@ -71,5 +71,22 @@ class StringHelpers
         return $text;
     }
 
+    public static function get_script_handles($index_name, $template_name = '', $is_config = false)
+    {
+        $output = '';
+        $handle = 'algolia-search-' . $index_name;
+        if ($template_name) {
+            $handle .= '-' . $template_name;
+        }
+        if ($is_config) {
+            $handle .= '-config';
+        }
+        $output = apply_filters(
+            'bd324_filter_handle_script_' . $handle,
+            $handle
+        );
+        return $output;
+    }
+
 
 }
