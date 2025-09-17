@@ -75,9 +75,6 @@ class VendorScript extends ScriptBase
         // Localize translations for algolia-client
         $this->localize_script_translations('algolia-client');
 
-        // Localize active language
-        $this->localize_active_language('algolia-client');
-
         // Modal trigger class
         $trigger_modal = apply_filters(
             'bd324_filter_modal_trigger',

@@ -10,6 +10,10 @@ use BD324\Search\Frontend\Assets\Scripts\VendorScript;
 use BD324\Search\Frontend\Assets\Scripts\CustomScript;
 use BD324\Search\CLI\IndexCommand;
 use BD324\Search\Helpers\ArrayHelpers;
+use BD324\Search\Helpers\StringHelpers;
+use BD324\Search\Filters\IndexFilter;
+use BD324\Search\Filters\RecordFilter;
+use BD324\Search\Filters\SearchFilter;
 
 class Loader
 {
@@ -23,7 +27,7 @@ class Loader
         $adminMetaboxes->register();
 
         // Algolia Client
-        $algoliaClient = Algolia\Client::get_instance();
+        Algolia\Client::get_instance();
 
         // Frontend: Styles
         $frontendStyles = new Styles();
@@ -36,6 +40,11 @@ class Loader
         // Frontend: Custom Scripts
         $customScripts = new CustomScript();
         $customScripts->register();
+
+        // Filters
+        new IndexFilter();
+        new RecordFilter();
+        new SearchFilter();
 
         // CLI
         if (defined('WP_CLI') && WP_CLI) {

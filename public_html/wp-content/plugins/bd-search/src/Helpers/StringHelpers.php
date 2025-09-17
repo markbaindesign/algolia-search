@@ -4,6 +4,8 @@ namespace BD324\Search\Helpers;
 
 class StringHelpers
 {
+    use StringHelperTrait;
+
     public static function slugify($text)
     {
         // Replace non-letter or digits by -
@@ -24,7 +26,6 @@ class StringHelpers
 
         return $text;
     }
-
 
     public static function starts_with($haystack, $needle)
     {
@@ -87,6 +88,5 @@ class StringHelpers
         );
         return $output;
     }
-
 
 }

@@ -9,9 +9,7 @@ $includes = [
        fn ($path) => BD616__PLUGIN_DIR . $path,
        [
          '/inc/algolia/index.php',
-         '/inc/scripts/index.php',
          '/inc/shortcodes/index.php',
-         '/inc/wpml.php',
          '/inc/templates/index.php',
       ]
    )

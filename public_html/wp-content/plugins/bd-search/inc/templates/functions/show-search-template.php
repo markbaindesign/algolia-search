@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) {
     die('Invalid request, dude!');
 }
 
+use BD324\Search\Helpers\StringHelpers;
+
 /**
  * Search Listings
  *
