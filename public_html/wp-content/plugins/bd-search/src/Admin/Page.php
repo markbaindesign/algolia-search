@@ -25,21 +25,21 @@ class Page
     }
 
     public function render_page()
-    {
-        ?>
-      <div class="wrap">
-         <h1>Search Admin</h1>
-         <p><strong>Algolia Application ID:</strong> <?php echo defined('ALGOLIA_APPLICATION_ID') ? esc_html(ALGOLIA_APPLICATION_ID) : '<em>Not defined</em>'; ?></p>
-         <form method="post">
-            <?php wp_nonce_field('bd324_run_function', 'bd324_nonce'); ?>
-            <input type="submit" name="bd324_run" class="button button-primary" value="Sync All Indexes">
-         </form>
-      </div>
-      <?php
-
-           // Get list of indexes
-           global $algolia;
+    { ?>
+        <div class="wrap">
+            <h1>Search Admin</h1>
+            <p><strong>Algolia Application ID:</strong> <?php echo defined('ALGOLIA_APPLICATION_ID') ? esc_html(ALGOLIA_APPLICATION_ID) : '<em>Not defined</em>'; ?></p>
+            <form method="post">
+                <?php wp_nonce_field('bd324_run_function', 'bd324_nonce'); ?>
+                <input type="submit" name="bd324_run" class="button button-primary" value="Sync All Indexes">
+            </form>
+        </div>
+        <?php
+            $output = [];
+        // Get list of indexes
+        global $algolia;
         $indexes = $algolia->listIndices();
+        $updater = new \BD324\Search\Algolia\Updater();
 
         // Handle ordering
         $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'name';
@@ -133,13 +133,13 @@ class Page
                     isset($_POST['bd324_sync_nonce']) &&
                     check_admin_referer('bd324_sync_index_' . $index['name'], 'bd324_sync_nonce')
                 ) {
-                    if (function_exists('bd324_algolia_update_command')) {
-                        $index_name = preg_replace('/^wp_/', '', $index['name']);
-                        bd324_algolia_update_command($index_name, [], null, null);
-                        echo '<div class="notice notice-success is-dismissible"><p>Index "' . esc_html($index['name']) . '" synced successfully!</p></div>';
-                    } else {
-                        echo '<div class="notice notice-error is-dismissible"><p>Function bd324_algolia_update_command does not exist!</p></div>';
-                    }
+                    $index_name = preg_replace('/^wp_/', '', $index['name']);
+
+                    $output = $updater->update_index(
+                        $index_name,
+                        null // Let function determine language from index name
+                    );
+                    echo '<div class="notice notice-success is-dismissible"><p>Index "' . esc_html($index['name']) . '" synced successfully!</p></div>';
                 }
                 echo '</td>';
 
@@ -147,21 +147,25 @@ class Page
             }
             echo '</tbody></table>';
             echo '</ul>';
-            ?>
 
-        <?php
-               // Check if button was pressed
-               if (isset($_POST['bd324_run']) && check_admin_referer('bd324_run_function', 'bd324_nonce')) {
-                   if (function_exists('bd324_algolia_update_command')) {
-                       foreach ($primary_indexes as $index) {
-                           $index_name = preg_replace('/^wp_/', '', $index['name']);
-                           bd324_algolia_update_command($index_name, [], null, null);
-                           echo '<div class="notice notice-success is-dismissible"><p>Index "' . esc_html($index['name']) . '" synced successfully!</p></div>';
-                       }
-                   }
-               }
+            // Update all button
+            if (isset($_POST['bd324_run']) && check_admin_referer('bd324_run_function', 'bd324_nonce')) {
+                foreach ($primary_indexes as $index) {
+
+                    // Remove "wp_" prefix
+                    $algolia_index_name = preg_replace('/^wp_/', '', $index['name']);
+
+                    $output = $updater->update_index(
+                        $algolia_index_name,
+                        null // Let function determine language from index name
+                    );
+
+                    echo '<div class="notice notice-success is-dismissible"><p>Index "' . esc_html($index['name']) . '" synced successfully!</p></div>';
+                }
+            }
         } else {
             echo '<p>No indexes found.</p>';
         }
+        return $output;
     }
 }

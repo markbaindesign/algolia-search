@@ -2,9 +2,11 @@
 
 namespace BD324\Search;
 
+use Algolia\AlgoliaSearch\SearchClient;
 use BD324\Search\Admin\Page;
 use BD324\Search\Admin\Metaboxes;
-use BD324\Search\Frontend\Assets;
+use BD324\Search\Frontend\Assets\Styles;
+use BD324\Search\Frontend\Assets\Scripts;
 use BD324\Search\CLI\IndexCommand;
 
 class Loader
@@ -18,9 +20,17 @@ class Loader
         $adminMetaboxes = new Metaboxes();
         $adminMetaboxes->register();
 
-        // Frontend
-        $frontendAssets = new Assets();
-        $frontendAssets->register();
+        // Algolia Client
+        $algoliaClient = Algolia\Client::get_instance();
+
+        // Frontend: Styles
+        $frontendStyles = new Styles();
+        $frontendStyles->register();
+
+        // Frontend: Scripts
+        $frontendScripts = new Scripts();
+        $frontendScripts->register();
+
         // CLI
         if (defined('WP_CLI') && WP_CLI) {
             // Register the CLI command
@@ -55,7 +65,19 @@ class Loader
             if ($updater === null) {
                 $updater = new \BD324\Search\Algolia\Updater();
             }
-            $updater->update_record($post_id, $post);
+
+            try {
+                $updater->update_record($post_id, $post);
+            } catch (\Exception $e) {
+                error_log(
+                    sprintf(
+                        '[Algolia] Error updating record for post ID %d: %s',
+                        $post_id,
+                        $e->getMessage()
+                    )
+                );
+            }
+
         }, 10, 2);
     }
 }

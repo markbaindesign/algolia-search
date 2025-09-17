@@ -4,8 +4,6 @@ if (!defined('ABSPATH')) {
     exit('Invalid request, dude.');
 }
 
-require_once BD616__PLUGIN_DIR . '/vendor/autoload.php';
-
 $includes = [
    ...array_map(
        fn ($path) => BD616__PLUGIN_DIR . $path,

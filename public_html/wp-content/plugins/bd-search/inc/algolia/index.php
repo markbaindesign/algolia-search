@@ -18,4 +18,3 @@ if (defined('ALGOLIA_APPLICATION_ID') && defined('ALGOLIA_APPLICATION_ID')) {
 
 require_once BD616__PLUGIN_DIR . '/inc/algolia/helpers/index.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/records/index.php';
-require_once BD616__PLUGIN_DIR . '/inc/algolia/updates/index.php';
