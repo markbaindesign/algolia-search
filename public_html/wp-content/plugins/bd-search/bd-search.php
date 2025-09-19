@@ -16,18 +16,16 @@ if (!defined('ABSPATH')) {
     die('Invalid request, dude.');
 }
 
-require __DIR__ . '/vendor/autoload.php';
-
-$loader = new \BD324\Search\Loader();
-$loader->register();
-
-if (
-    !defined('ALGOLIA_APPLICATION_ID') ||
-    !defined('ALGOLIA_SEARCH_API_KEY') ||
-    !defined('ALGOLIA_API_KEY')
-) {
-    error_log(print_r("Missing Algolia Keys!", true));
-    return;
+define('BD616__PLUGIN_DEBUG', true);
+if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+    if (
+        !defined('ALGOLIA_APPLICATION_ID') ||
+        !defined('ALGOLIA_SEARCH_API_KEY') ||
+        !defined('ALGOLIA_API_KEY')
+    ) {
+        error_log(print_r('BD616__PLUGIN_DEBUG: Missing Algolia Keys!' . PHP_EOL, true));
+        return;
+    }
 }
 
 define('BD616__PLUGIN_FILE', __FILE__);
@@ -43,6 +41,11 @@ define('BD616__PLUGIN_URL', $plugin_dir_url);
 define('BD616__SCRIPTS_URL', BD616__PLUGIN_URL . 'assets/js');
 define('BD616__STYLES_URL', BD616__PLUGIN_URL . 'assets/css');
 define('BD616__IMAGES_URL', BD616__PLUGIN_URL . 'assets/images');
+
+require __DIR__ . '/vendor/autoload.php';
+
+$loader = new \BD324\Search\Loader();
+$loader->register();
 
 /* Includes */
 require_once BD616__PLUGIN_DIR . '/inc/index.php';

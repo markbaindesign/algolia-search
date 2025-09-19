@@ -6,14 +6,13 @@ use Algolia\AlgoliaSearch\SearchClient;
 use BD324\Search\Admin\Page;
 use BD324\Search\Admin\Metaboxes;
 use BD324\Search\Frontend\Assets\Styles;
-use BD324\Search\Frontend\Assets\Scripts\VendorScript;
-use BD324\Search\Frontend\Assets\Scripts\CustomScript;
 use BD324\Search\CLI\IndexCommand;
 use BD324\Search\Helpers\ArrayHelpers;
 use BD324\Search\Helpers\StringHelpers;
 use BD324\Search\Filters\IndexFilter;
 use BD324\Search\Filters\RecordFilter;
 use BD324\Search\Filters\SearchFilter;
+use BD324\Search\Frontend\Assets\Scripts\ScriptManager;
 
 class Loader
 {
@@ -26,20 +25,15 @@ class Loader
         $adminMetaboxes = new Metaboxes();
         $adminMetaboxes->register();
 
+        // Scripts (managed by ScriptManager)
+        (new ScriptManager())->register();
+
         // Algolia Client
         Algolia\Client::get_instance();
 
         // Frontend: Styles
         $frontendStyles = new Styles();
         $frontendStyles->register();
-
-        // Frontend: Vendor Scripts
-        $vendorScripts = new VendorScript();
-        $vendorScripts->register();
-
-        // Frontend: Custom Scripts
-        $customScripts = new CustomScript();
-        $customScripts->register();
 
         // Filters
         new IndexFilter();

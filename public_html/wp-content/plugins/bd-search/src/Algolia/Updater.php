@@ -59,8 +59,11 @@ class Updater
                 $name,
                 $algolia_index_language,
             );
-            error_log('IndexName (raw): ' . var_export($algolia_full_index_name, true));
-            error_log('IndexName (hex): ' . bin2hex($algolia_full_index_name));
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                error_log('IndexName (raw): ' . var_export($algolia_full_index_name, true) . PHP_EOL);
+                error_log('IndexName (hex): ' . bin2hex($algolia_full_index_name) . PHP_EOL);
+            }
+
             $index = $algolia->initIndex($algolia_full_index_name);
 
             // Remove any drafts or password-protected posts from the index

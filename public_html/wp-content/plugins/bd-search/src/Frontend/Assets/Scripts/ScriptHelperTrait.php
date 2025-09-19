@@ -24,6 +24,13 @@ trait ScriptHelperTrait
         $in_footer = apply_filters($args['in_footer_filter'] ?? '', $args['in_footer'] ?? true);
 
         \wp_enqueue_script($handle, $src, $deps, $version, $in_footer);
+
+        // Debug: Check if the script is enqueued
+        if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+            if (wp_scripts()->queue && in_array($handle, wp_scripts()->queue)) {
+                error_log(print_r('BD616__PLUGIN_DEBUG: ' . $handle . ' is enqueued (wp_scripts).' . PHP_EOL, true));
+            }
+        }
     }
 
     /**
@@ -34,18 +41,29 @@ trait ScriptHelperTrait
      */
     protected function register_script($args)
     {
-        $enabled = apply_filters($args['enabled_filter'] ?? '', true);
-        if (!$enabled) {
-            return;
-        }
+        add_action('wp_enqueue_scripts', function () use ($args) {
+            $enabled = apply_filters($args['enabled_filter'] ?? '', true);
+            if (!$enabled) {
+                return;
+            }
 
-        $handle    = apply_filters($args['handle_filter'] ?? '', $args['handle']);
-        $src       = apply_filters($args['src_filter'] ?? '', $args['src']);
-        $deps      = apply_filters($args['deps_filter'] ?? '', $args['deps'] ?? []);
-        $version   = apply_filters($args['version_filter'] ?? '', $args['version'] ?? BD616__PLUGIN_VERSION);
-        $in_footer = apply_filters($args['in_footer_filter'] ?? '', $args['in_footer'] ?? true);
+            $handle    = apply_filters($args['handle_filter'] ?? '', $args['handle']);
+            $src       = apply_filters($args['src_filter'] ?? '', $args['src']);
+            $deps      = apply_filters($args['deps_filter'] ?? '', $args['deps'] ?? []);
+            $version   = apply_filters($args['version_filter'] ?? '', $args['version'] ?? BD616__PLUGIN_VERSION);
+            $in_footer = apply_filters($args['in_footer_filter'] ?? '', $args['in_footer'] ?? true);
 
-        \wp_register_script($handle, $src, $deps, $version, $in_footer);
+            \wp_register_script($handle, $src, $deps, $version, $in_footer);
+
+            // Debug: Check if the script is registered
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                $registered_scripts = wp_scripts()->registered;
+                $is_registered = $registered_scripts[$handle] ?? null;
+                if ($is_registered) {
+                    error_log(print_r('BD616__PLUGIN_DEBUG: ' . $handle . ' is registered (wp_scripts).' . PHP_EOL, true));
+                }
+            }
+        });
     }
 
     /**
@@ -76,5 +94,18 @@ trait ScriptHelperTrait
             'algolia_active_lang_object',
             $active_language
         );
+    }
+
+    /**
+     * Registers all scripts used in the theme or plugin.
+     *
+     * @return void
+     */
+    protected function register_all_scripts($scripts)
+    {
+        // Register each script
+        foreach ($scripts as $key => $args) {
+            $this->register_script($args);
+        }
     }
 }

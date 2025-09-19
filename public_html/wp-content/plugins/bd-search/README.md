@@ -1,6 +1,7 @@
 # BD Search Plugin
 
 ## v2.7.0
+
 ## By Bain Design
 
 ## Algolia keys
@@ -164,14 +165,14 @@ By default, this shortcode will display results from the `global` index.
 
 ### Attributes
 
-* `index` - The index to search. Default is `global`.
-* `template` - The template to use. Default is `NULL`.
+-  `index` - The index to search. Default is `global`.
+-  `template` - The template to use. Default is `NULL`.
 
 ## Templates
 
 There is a default template. To load a custom template, use the `template` attribute in the shortcode.
 
-Templates can be customised using filters. 
+Templates can be customised using filters.
 
 Note: IDs should match the custom JS for that template.
 
@@ -298,23 +299,71 @@ Styles can be customized using CSS variables. The following variables are availa
    --bd-search-form-filter-display-tags: block;
 
    /* Full Page */
-   
+
 }
 
 ```
 
 # Custom Indexes
 
-## Custom default Global index
+## Custom Default Global Index
 
-By default, the plugin assumes an index called "global". 
+By default, the plugin assumes an index called "global".  
+Scripts for this index are loaded automatically, along with two views ("compact" and "advanced").
 
-Scripts for this index are loaded by default, along with 2 views ("compact" and "advanced").
+To customize which scripts are loaded for the global index, use the `$scripts` array filter:
 
-To load a custom script for the default Global index, you should also remove the action which registers the default global script.
+```php
+add_filter('bd324_register_scripts', function($scripts) {
+   // Remove default global scripts
+   unset($scripts['global']);
+   unset($scripts['global_advanced']);
 
+   // Add your custom script(s)
+   $scripts['my_custom_global'] = [
+      'src' => 'path/to/my-custom-global.js',
+      'deps' => ['jquery'],
+      // other script args...
+   ];
+
+   return $scripts;
+});
 ```
-remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_global', 10);
-remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_global_advanced', 10);
-```
 
+This approach allows you to remove the default global scripts and register your own, without needing to manually remove actions.
+
+## Copilot Context Summary
+
+**User Background:**  
+You are an experienced WordPress plugin developer, transitioning from procedural to object-oriented programming (OOP). You have a good grasp of WordPress and PHP, and are learning OOP best practices for plugin architecture.
+
+**Project Structure:**  
+Your plugin uses a modular OOP architecture with the following key components:
+
+-  `Loader.php`: Central entry point for plugin setup and registration.
+-  `/src/Frontend/Assets/Scripts/`: Contains script management classes:
+   -  `ScriptManager.php`: Coordinates script registration/enqueuing.
+   -  `VendorScript.php`: Handles third-party (vendor) scripts.
+   -  `CustomScript.php`: Handles custom plugin scripts.
+   -  `ScriptHelperTrait.php`: Provides reusable helper methods for registering/enqueuing scripts.
+   -  `ScriptBase.php`: Abstract base class for script handlers.
+-  `/src/Filters/`: Contains filter classes (`IndexFilter.php`, `RecordFilter.php`, `SearchFilter.php`).
+-  `/src/Helpers/ArrayHelpers.php`: Contains helper functions, e.g., for translations.
+
+**Script Loading Approach:**
+
+-  Scripts are defined in associative arrays in handler classes.
+-  Registration and enqueueing are handled via methods, using a trait for shared logic.
+-  A filter (`bd324_register_scripts`) allows child plugins to add or remove scripts from the array.
+-  Scripts can be marked with `'register_only' => true` to register without enqueuing.
+
+**Goals:**
+
+-  Refactor script loading to be modular, extensible, and OOP-friendly.
+-  Make it easy for child plugins to interact with script registration.
+-  Learn and apply OOP fundamentals in WordPress plugin development.
+
+---
+
+\*Paste this summary into your README or documentation.  
+At the start of a Copilot Chat session, reference this context to help Copilot understand your

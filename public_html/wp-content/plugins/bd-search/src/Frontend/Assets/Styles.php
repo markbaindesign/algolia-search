@@ -21,10 +21,10 @@ class Styles
 
     public function enqueue_all_styles()
     {
-        $this->enqueue_base();
-        $this->enqueue_theme();
         $this->enqueue_algolia_reset();
         $this->enqueue_algolia_theme();
+        $this->enqueue_base();
+        $this->enqueue_theme();
     }
 
     /**

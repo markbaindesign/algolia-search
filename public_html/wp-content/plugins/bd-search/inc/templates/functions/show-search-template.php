@@ -36,10 +36,17 @@ if (!function_exists('bd324_show_search_template')):
          * e.g. /inc/indices/curriculum/scripts.php
          */
 
-        $handle_script = StringHelpers::get_script_handles($index_name, $template_name);
+        // Allow child plugins to pass custom variables to the template
+        $custom_vars = apply_filters('bd324_search_template_vars', array(), $index_name, $template_name);
+
+        // Enqueue scripts, optionally using custom vars if needed
+
+        // 1. Main script
+        $handle_script = StringHelpers::get_script_handles($index_name, $template_name, false, $custom_vars);
         bd324_enqueue_script_if_registered($handle_script);
 
-        $handle_script_config = StringHelpers::get_script_handles($index_name, $template_name, true);
+        // 2. Config script
+        $handle_script_config = StringHelpers::get_script_handles($index_name, $template_name, true, $custom_vars);
         bd324_enqueue_script_if_registered($handle_script_config);
 
         // Open Wrapper
