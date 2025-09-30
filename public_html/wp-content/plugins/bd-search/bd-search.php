@@ -4,7 +4,7 @@
    Plugin Name: BD Algolia Search
    Description: Search powered by Algolia - core plugin functionality.
    Author: Bain Design
-   Version: 2.7.0
+   Version: 2.8.0
    Author URI: http://bain.design
    License: GNU General Public License v2.0
    License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,7 +31,7 @@ if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
 define('BD616__PLUGIN_FILE', __FILE__);
 define('BD616__PLUGIN_HANDLE', 'bd-algolia-search');
 define('BD616__PLUGIN_NAME', 'BD Algolia Search');
-define('BD616__PLUGIN_VERSION', '2.6.0');
+define('BD616__PLUGIN_VERSION', '2.8.0');
 define('BD616__PLUGIN_DIR', untrailingslashit(dirname(BD616__PLUGIN_FILE)));
 define('BD616__PLUGIN_DIR_NAME', untrailingslashit(dirname(plugin_basename(BD616__PLUGIN_FILE))));
 
