@@ -4,7 +4,7 @@
    Plugin Name: BD Algolia Search
    Description: Search powered by Algolia - core plugin functionality.
    Author: Bain Design
-   Version: 2.7.0
+   Version: 2.8.0
    Author URI: http://bain.design
    License: GNU General Public License v2.0
    License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,22 +13,22 @@
  */
 
 if (!defined('ABSPATH')) {
-   die('Invalid request, dude.');
+    die('Invalid request, dude.');
 }
 
-if(
-   !defined('ALGOLIA_APPLICATION_ID') ||
-   !defined('ALGOLIA_SEARCH_API_KEY') ||
-   !defined('ALGOLIA_API_KEY')
-){
-   error_log(print_r("Missing Algolia Keys!", true));
-   return;
+if (
+    !defined('ALGOLIA_APPLICATION_ID') ||
+    !defined('ALGOLIA_SEARCH_API_KEY') ||
+    !defined('ALGOLIA_API_KEY')
+) {
+    error_log(print_r("Missing Algolia Keys!", true));
+    return;
 }
 
 define('BD616__PLUGIN_FILE', __FILE__);
 define('BD616__PLUGIN_HANDLE', 'bd-algolia-search');
 define('BD616__PLUGIN_NAME', 'BD Algolia Search');
-define('BD616__PLUGIN_VERSION', '2.6.0');
+define('BD616__PLUGIN_VERSION', '2.8.0');
 define('BD616__PLUGIN_DIR', untrailingslashit(dirname(BD616__PLUGIN_FILE)));
 define('BD616__PLUGIN_DIR_NAME', untrailingslashit(dirname(plugin_basename(BD616__PLUGIN_FILE))));
 
@@ -45,11 +45,11 @@ require_once BD616__PLUGIN_DIR . '/inc/inc.php';
 // Load plugin textdomain
 function BD616_load_textdomain()
 {
-   // https://developer.wordpress.org/reference/functions/load_plugin_textdomain/
-   load_plugin_textdomain(
-      '_bd_algolia_search_plugin',
-      false,
-      BD616__PLUGIN_DIR_NAME . '/languages'
-   );
+    // https://developer.wordpress.org/reference/functions/load_plugin_textdomain/
+    load_plugin_textdomain(
+        '_bd_algolia_search_plugin',
+        false,
+        BD616__PLUGIN_DIR_NAME . '/languages'
+    );
 }
 add_action('init', 'BD616_load_textdomain');
