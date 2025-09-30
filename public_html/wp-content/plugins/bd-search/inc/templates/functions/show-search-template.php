@@ -24,6 +24,14 @@ if (!function_exists('bd324_show_search_template')):
       }
 
       // Enqueue Index Scripts
+
+      /**
+       * If script is not registered, an error message will be displayed
+       * in the debug.log file.
+       * Scripts need to be registered in the custom search plugin
+       * e.g. /inc/indices/curriculum/scripts.php
+       */
+
       $handle_script = bd324_get_script_handles($index_name, $template_name);
       bd324_enqueue_script_if_registered($handle_script);
 
