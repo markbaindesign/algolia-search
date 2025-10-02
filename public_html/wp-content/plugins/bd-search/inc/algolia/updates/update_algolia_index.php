@@ -125,15 +125,6 @@ if (!function_exists('bd324_algolia_update_index')):
                     error_log("BD324 DEBUG: [UPDATE_INDEX] Post #{$post->ID} converted to record - Size: {$record_size} bytes, Fields: " . implode(', ', array_keys($record)));
                 }
 
-                /* Check record size does not exceed Algolia Max Record Size */
-                if (!BD616_check_record_size($record, $post->ID)) {
-                    $oversized_records++;
-                    if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
-                        error_log("BD324 DEBUG: [UPDATE_INDEX] Post #{$post->ID} record exceeds size limit - skipping");
-                    }
-                    continue;
-                }
-
                 /* Add record to array */
                 $records[] = $record;
                 $count++;
@@ -203,12 +194,41 @@ if (!function_exists('bd324_algolia_update_index')):
         $update_index['oversized_records'] = $oversized_records;
         $update_index['algolia_full_index_name'] = $algolia_full_index_name;
 
+        // Get truncated posts data
+        $truncated_posts = get_option('bd324_truncated_posts', []);
+        $post_titles = [];
+
+        // Ensure we have an array to work with
+        if (is_array($truncated_posts)) {
+            foreach ($truncated_posts as $key => $truncated_post) {
+                $post = get_post($key);
+                if ($post && isset($post->post_title)) {
+                    $post_titles[] = $post->post_title;
+                }
+            }
+        }
+
+        $update_index['truncated_post_titles'] = $post_titles;
+        $update_index['truncated_posts'] = $truncated_posts;
+
         if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
             error_log("BD324 DEBUG: [UPDATE_INDEX] Index update completed:");
             error_log("BD324 DEBUG: [UPDATE_INDEX] - Total records indexed: {$count}");
             error_log("BD324 DEBUG: [UPDATE_INDEX] - Posts skipped (not allowed): {$skipped_posts}");
             error_log("BD324 DEBUG: [UPDATE_INDEX] - Records skipped (oversized): {$oversized_records}");
             error_log("BD324 DEBUG: [UPDATE_INDEX] - Full index name: '{$algolia_full_index_name}'");
+
+            // Safe implode with array check
+            if (!empty($update_index['truncated_post_titles']) && is_array($update_index['truncated_post_titles'])) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] - Truncated posts: '" . implode(", ", $update_index['truncated_post_titles']) . "'");
+            } else {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] - No truncated posts found");
+            }
+
+            // Also log count of truncated posts
+            if (is_array($truncated_posts)) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] - Total truncated posts: " . count($truncated_posts));
+            }
         }
 
         return $update_index;
