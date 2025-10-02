@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-   die('Invalid request, dude.');
+    die('Invalid request, dude.');
 }
 
 /**
@@ -28,7 +28,7 @@ function algolia_add_tax_values_to_record($record, $post_id, $tax)
 
    $record[$tax . '-multiple'] = $term_data;
 
-   return $record;
+    return $record;
 }
 add_filter('add_tax_values_to_record', 'algolia_add_tax_values_to_record', 10, 3);
 

@@ -41,15 +41,3 @@ define('BD616__IMAGES_URL', BD616__PLUGIN_URL . 'assets/images');
 
 /* Includes */
 require_once BD616__PLUGIN_DIR . '/inc/inc.php';
-
-// Load plugin textdomain
-function BD616_load_textdomain()
-{
-    // https://developer.wordpress.org/reference/functions/load_plugin_textdomain/
-    load_plugin_textdomain(
-        '_bd_algolia_search_plugin',
-        false,
-        BD616__PLUGIN_DIR_NAME . '/languages'
-    );
-}
-add_action('init', 'BD616_load_textdomain');
