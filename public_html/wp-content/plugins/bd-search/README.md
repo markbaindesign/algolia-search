@@ -1,6 +1,7 @@
 # BD Search Plugin
 
-## v2.3.0
+## v2.3.2
+
 ## By Bain Design
 
 ## Algolia keys
@@ -164,14 +165,14 @@ By default, this shortcode will display results from the `global` index.
 
 ### Attributes
 
-* `index` - The index to search. Default is `global`.
-* `template` - The template to use. Default is `NULL`.
+-  `index` - The index to search. Default is `global`.
+-  `template` - The template to use. Default is `NULL`.
 
 ## Templates
 
 There is a default template. To load a custom template, use the `template` attribute in the shortcode.
 
-Templates can be customised using filters. 
+Templates can be customised using filters.
 
 Note: IDs should match the custom JS for that template.
 
@@ -298,7 +299,7 @@ Styles can be customized using CSS variables. The following variables are availa
    --bd-search-form-filter-display-tags: block;
 
    /* Full Page */
-   
+
 }
 
 ```
@@ -307,7 +308,7 @@ Styles can be customized using CSS variables. The following variables are availa
 
 ## Custom default Global index
 
-By default, the plugin assumes an index called "global". 
+By default, the plugin assumes an index called "global".
 
 Scripts for this index are loaded by default, along with 2 views ("compact" and "advanced").
 
@@ -317,4 +318,3 @@ To load a custom script for the default Global index, you should also remove the
 remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_global', 10);
 remove_action('wp_enqueue_scripts', 'bd324_register_algolia_script_global_advanced', 10);
 ```
-
