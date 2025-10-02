@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 function algolia_add_all_post_types_to_record(WP_Post $post)
 {
     // Define maximum record size in bytes (Algolia limit is typically 100KB)
-    $max_record_size = apply_filters('bd324_algolia_max_record_size', 102400); // 100KB default
+    $max_record_size = apply_filters('bd324_algolia_max_record_size', 10000); // 10000 bytes default
 
     $record = [];
 
