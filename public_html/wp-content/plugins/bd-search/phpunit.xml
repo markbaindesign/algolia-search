@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    verbose="true"
+>
+    <testsuites>
+        <testsuite name="BD Search Plugin Test Suite">
+            <directory suffix="Test.php">tests</directory>
+        </testsuite>
+    </testsuites>
+    
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./inc</directory>
+            <directory suffix=".php">./src</directory>
+        </include>
+        <exclude>
+            <directory>./vendor</directory>
+            <directory>./tests</directory>
+            <file>./bd-search.php</file>
+        </exclude>
+    </coverage>
+    
+    <logging>
+        <junit outputFile="test-results.xml"/>
+        <testdoxHtml outputFile="testdox.html"/>
+    </logging>
+
+    <php>
+        <const name="BD324_DEBUG" value="true"/>
+        <env name="WP_TESTS_DOMAIN" value="algolia-search.local"/>
+        <env name="WP_TESTS_EMAIL" value="admin@algolia-search.local"/>
+        <env name="WP_TESTS_TITLE" value="Test Site"/>
+        <env name="WP_TESTS_CONFIG_FILE_PATH" value="/tmp/wp-tests-config.php"/>
+    </php>
+</phpunit>

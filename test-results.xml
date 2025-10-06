@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="28" assertions="34" errors="10" warnings="0" failures="2" skipped="0" time="0.078446">
+    <testsuite name="BD Search Plugin Test Suite" tests="28" assertions="34" errors="10" warnings="0" failures="2" skipped="0" time="0.078446">
+      <testsuite name="BDSearch\Tests\AlgoliaIndexTest" file="/srv/www/algolia-search/tests/AlgoliaIndexTest.php" tests="7" assertions="3" errors="4" warnings="0" failures="0" skipped="0" time="0.065408">
+        <testcase name="test_get_algolia_indexName_function_exists" class="BDSearch\Tests\AlgoliaIndexTest" classname="BDSearch.Tests.AlgoliaIndexTest" file="/srv/www/algolia-search/tests/AlgoliaIndexTest.php" line="42" assertions="1" time="0.050713">
+          <system-out>BD324 debug: get_algolia_indexName function exists test passed
+</system-out>
+        </testcase>
+        <testcase name="test_get_algolia_indexName_with_valid_post" class="BDSearch\Tests\AlgoliaIndexTest" classname="BDSearch.Tests.AlgoliaIndexTest" file="/srv/www/algolia-search/tests/AlgoliaIndexTest.php" line="54" assertions="0" time="0.013367">
+          <error type="Patchwork\Exceptions\DefinedTooEarly">BDSearch\Tests\AlgoliaIndexTest::test_get_algolia_indexName_with_valid_post
+Patchwork\Exceptions\DefinedTooEarly: The file that defines get_post_type() was included earlier than Patchwork. Please reverse this order to be able to redefine the function in question.
+
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:167
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:81
+/srv/www/algolia-search/vendor/antecedent/patchwork/Patchwork.php:25
+/srv/www/algolia-search/vendor/brain/monkey/src/Expectation/FunctionStub.php:103
+/srv/www/algolia-search/tests/AlgoliaIndexTest.php:57</error>
+        </testcase>
+        <testcase name="test_get_algolia_indexName_with_wpml" class="BDSearch\Tests\AlgoliaIndexTest" classname="BDSearch.Tests.AlgoliaIndexTest" file="/srv/www/algolia-search/tests/AlgoliaIndexTest.php" line="73" assertions="0" time="0.000237">
+          <error type="Patchwork\Exceptions\DefinedTooEarly">BDSearch\Tests\AlgoliaIndexTest::test_get_algolia_indexName_with_wpml
+Patchwork\Exceptions\DefinedTooEarly: The file that defines get_post_type() was included earlier than Patchwork. Please reverse this order to be able to redefine the function in question.
+
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:167
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:81
+/srv/www/algolia-search/vendor/antecedent/patchwork/Patchwork.php:25
+/srv/www/algolia-search/vendor/brain/monkey/src/Expectation/FunctionStub.php:103
+/srv/www/algolia-search/tests/AlgoliaIndexTest.php:76</error>
+        </testcase>
+        <testcase name="test_bd324_get_algolia_index_name_function_exists" class="BDSearch\Tests\AlgoliaIndexTest" classname="BDSearch.Tests.AlgoliaIndexTest" file="/srv/www/algolia-search/tests/AlgoliaIndexTest.php" line="90" assertions="1" time="0.000240">
+          <system-out>BD324 debug: bd324_get_algolia_index_name function exists test passed
+</system-out>
+        </testcase>
+        <testcase name="test_algolia_post_index_name_function_exists" class="BDSearch\Tests\AlgoliaIndexTest" classname="BDSearch.Tests.AlgoliaIndexTest" file="/srv/www/algolia-search/tests/AlgoliaIndexTest.php" line="102" assertions="1" time="0.000291">
+          <system-out>BD324 debug: algolia_post_index_name function exists test passed
+</system-out>
+        </testcase>
+        <testcase name="test_index_name_generation_different_post_types" class="BDSearch\Tests\AlgoliaIndexTest" classname="BDSearch.Tests.AlgoliaIndexTest" file="/srv/www/algolia-search/tests/AlgoliaIndexTest.php" line="114" assertions="0" time="0.000426">
+          <error type="Patchwork\Exceptions\DefinedTooEarly">BDSearch\Tests\AlgoliaIndexTest::test_index_name_generation_different_post_types
+Patchwork\Exceptions\DefinedTooEarly: The file that defines get_post_type() was included earlier than Patchwork. Please reverse this order to be able to redefine the function in question.
+
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:167
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:81
+/srv/www/algolia-search/vendor/antecedent/patchwork/Patchwork.php:25
+/srv/www/algolia-search/vendor/brain/monkey/src/Expectation/FunctionStub.php:103
+/srv/www/algolia-search/tests/AlgoliaIndexTest.php:119</error>
+        </testcase>
+        <testcase name="test_error_handling_invalid_post_id" class="BDSearch\Tests\AlgoliaIndexTest" classname="BDSearch.Tests.AlgoliaIndexTest" file="/srv/www/algolia-search/tests/AlgoliaIndexTest.php" line="135" assertions="0" time="0.000134">
+          <error type="Patchwork\Exceptions\DefinedTooEarly">BDSearch\Tests\AlgoliaIndexTest::test_error_handling_invalid_post_id
+Patchwork\Exceptions\DefinedTooEarly: The file that defines get_post_type() was included earlier than Patchwork. Please reverse this order to be able to redefine the function in question.
+
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:167
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:81
+/srv/www/algolia-search/vendor/antecedent/patchwork/Patchwork.php:25
+/srv/www/algolia-search/vendor/brain/monkey/src/Expectation/FunctionStub.php:103
+/srv/www/algolia-search/tests/AlgoliaIndexTest.php:137</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="BDSearch\Tests\AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" tests="8" assertions="11" errors="2" warnings="0" failures="1" skipped="0" time="0.011186">
+        <testcase name="test_algolia_helper_functions_exist" class="BDSearch\Tests\AlgoliaIntegrationTest" classname="BDSearch.Tests.AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" line="35" assertions="1" time="0.001656">
+          <system-out>BD324 debug: ✅ get_algolia_indexName function exists
+BD324 debug: ✅ bd324_get_algolia_index_name function exists
+BD324 debug: ✅ algolia_post_index_name function exists
+BD324 debug: ✅ bd324_update_algolia_record function exists
+BD324 debug: ✅ algolia_add_content_to_record function exists
+BD324 debug: ✅ algolia_add_permalink_to_record function exists
+BD324 debug: ✅ algolia_add_featured_to_record function exists
+BD324 debug: ✅ algolia_add_contributor_to_record function exists
+BD324 debug: ✅ algolia_add_tax_values_to_record function exists
+</system-out>
+        </testcase>
+        <testcase name="test_index_name_generation_default" class="BDSearch\Tests\AlgoliaIntegrationTest" classname="BDSearch.Tests.AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" line="68" assertions="0" time="0.001949">
+          <error type="PHPUnit\Framework\Error\Warning">BDSearch\Tests\AlgoliaIntegrationTest::test_index_name_generation_default
+Trying to access array offset on value of type null
+
+/srv/www/algolia-search/public_html/wp-content/plugins/bd-search/inc/algolia/al-helpers/get_algolia_indexName.php:27
+/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php:71</error>
+        </testcase>
+        <testcase name="test_bd324_debug_log_in_algolia" class="BDSearch\Tests\AlgoliaIntegrationTest" classname="BDSearch.Tests.AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" line="82" assertions="1" time="0.006116">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">BDSearch\Tests\AlgoliaIntegrationTest::test_bd324_debug_log_in_algolia
+Failed asserting that '' contains "[BD324 debug]".
+
+/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php:93</failure>
+        </testcase>
+        <testcase name="test_record_array_structure" class="BDSearch\Tests\AlgoliaIntegrationTest" classname="BDSearch.Tests.AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" line="101" assertions="0" time="0.000262">
+          <error type="TypeError">BDSearch\Tests\AlgoliaIntegrationTest::test_record_array_structure
+TypeError: algolia_add_content_to_record(): Argument #2 ($post) must be of type WP_Post, stdClass given, called in /srv/www/algolia-search/tests/AlgoliaIntegrationTest.php on line 112
+
+/srv/www/algolia-search/public_html/wp-content/plugins/bd-search/inc/algolia/al-records/algolia_add_content_to_record.php:10
+/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php:112</error>
+        </testcase>
+        <testcase name="test_algolia_constants_for_debugging" class="BDSearch\Tests\AlgoliaIntegrationTest" classname="BDSearch.Tests.AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" line="126" assertions="3" time="0.000176">
+          <system-out>BD324 debug: ✅ All required Algolia constants are defined
+BD324 debug: BD324_DEBUG = true
+BD324 debug: ALGOLIA_APPLICATION_ID = test_app_id
+BD324 debug: ALGOLIA_SEARCH_API_KEY = test_search_key
+</system-out>
+        </testcase>
+        <testcase name="test_bd324_debug_log_with_algolia_data" class="BDSearch\Tests\AlgoliaIntegrationTest" classname="BDSearch.Tests.AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" line="141" assertions="1" time="0.000275">
+          <system-out>BD324 debug: ✅ bd324_debug_log works with Algolia data structures
+</system-out>
+        </testcase>
+        <testcase name="test_wordpress_integration_points" class="BDSearch\Tests\AlgoliaIntegrationTest" classname="BDSearch.Tests.AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" line="160" assertions="1" time="0.000220">
+          <system-out>BD324 debug: ✅ WordPress integration points work
+</system-out>
+        </testcase>
+        <testcase name="test_error_handling_scenarios" class="BDSearch\Tests\AlgoliaIntegrationTest" classname="BDSearch.Tests.AlgoliaIntegrationTest" file="/srv/www/algolia-search/tests/AlgoliaIntegrationTest.php" line="178" assertions="4" time="0.000532">
+          <system-out>BD324 debug: ⚠️  Error in empty_post_id: Trying to access array offset on value of type null
+BD324 debug: ⚠️  Error in null_post_id: Trying to access array offset on value of type null
+BD324 debug: ⚠️  Error in invalid_post_id: Trying to access array offset on value of type null
+BD324 debug: ⚠️  Error in string_post_id: Trying to access array offset on value of type null
+</system-out>
+        </testcase>
+      </testsuite>
+      <testsuite name="BDSearch\Tests\AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" tests="8" assertions="7" errors="4" warnings="0" failures="1" skipped="0" time="0.001268">
+        <testcase name="test_bd324_update_algolia_record_function_exists" class="BDSearch\Tests\AlgoliaRecordTest" classname="BDSearch.Tests.AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" line="45" assertions="1" time="0.000111">
+          <system-out>BD324 debug: bd324_update_algolia_record function exists test passed
+</system-out>
+        </testcase>
+        <testcase name="test_record_update_with_valid_post" class="BDSearch\Tests\AlgoliaRecordTest" classname="BDSearch.Tests.AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" line="57" assertions="0" time="0.000284">
+          <error type="Patchwork\Exceptions\DefinedTooEarly">BDSearch\Tests\AlgoliaRecordTest::test_record_update_with_valid_post
+Patchwork\Exceptions\DefinedTooEarly: The file that defines get_post() was included earlier than Patchwork. Please reverse this order to be able to redefine the function in question.
+
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:167
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:81
+/srv/www/algolia-search/vendor/antecedent/patchwork/Patchwork.php:25
+/srv/www/algolia-search/vendor/brain/monkey/src/Expectation/FunctionStub.php:103
+/srv/www/algolia-search/tests/AlgoliaRecordTest.php:69</error>
+        </testcase>
+        <testcase name="test_record_update_skips_revisions" class="BDSearch\Tests\AlgoliaRecordTest" classname="BDSearch.Tests.AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" line="87" assertions="0" time="0.000125">
+          <error type="Patchwork\Exceptions\DefinedTooEarly">BDSearch\Tests\AlgoliaRecordTest::test_record_update_skips_revisions
+Patchwork\Exceptions\DefinedTooEarly: The file that defines wp_is_post_revision() was included earlier than Patchwork. Please reverse this order to be able to redefine the function in question.
+
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:167
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:81
+/srv/www/algolia-search/vendor/antecedent/patchwork/Patchwork.php:25
+/srv/www/algolia-search/vendor/brain/monkey/src/Expectation/FunctionStub.php:103
+/srv/www/algolia-search/tests/AlgoliaRecordTest.php:96</error>
+        </testcase>
+        <testcase name="test_record_update_skips_autosaves" class="BDSearch\Tests\AlgoliaRecordTest" classname="BDSearch.Tests.AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" line="113" assertions="0" time="0.000113">
+          <error type="Patchwork\Exceptions\DefinedTooEarly">BDSearch\Tests\AlgoliaRecordTest::test_record_update_skips_autosaves
+Patchwork\Exceptions\DefinedTooEarly: The file that defines wp_is_post_revision() was included earlier than Patchwork. Please reverse this order to be able to redefine the function in question.
+
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:167
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:81
+/srv/www/algolia-search/vendor/antecedent/patchwork/Patchwork.php:25
+/srv/www/algolia-search/vendor/brain/monkey/src/Expectation/FunctionStub.php:103
+/srv/www/algolia-search/tests/AlgoliaRecordTest.php:122</error>
+        </testcase>
+        <testcase name="test_algolia_add_content_to_record_function_exists" class="BDSearch\Tests\AlgoliaRecordTest" classname="BDSearch.Tests.AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" line="139" assertions="1" time="0.000098">
+          <system-out>BD324 debug: algolia_add_content_to_record function exists test passed
+</system-out>
+        </testcase>
+        <testcase name="test_algolia_add_permalink_to_record_function_exists" class="BDSearch\Tests\AlgoliaRecordTest" classname="BDSearch.Tests.AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" line="151" assertions="1" time="0.000145">
+          <system-out>BD324 debug: algolia_add_permalink_to_record function exists test passed
+</system-out>
+        </testcase>
+        <testcase name="test_record_field_addition_functions" class="BDSearch\Tests\AlgoliaRecordTest" classname="BDSearch.Tests.AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" line="163" assertions="4" time="0.000175">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">BDSearch\Tests\AlgoliaRecordTest::test_record_field_addition_functions
+BD324 debug: algolia_add_wordpress_post_type_to_record function should exist
+Failed asserting that false is true.
+
+/srv/www/algolia-search/tests/AlgoliaRecordTest.php:173</failure>
+          <system-out>BD324 debug: algolia_add_featured_to_record function exists test passed
+BD324 debug: algolia_add_contributor_to_record function exists test passed
+BD324 debug: algolia_add_tax_values_to_record function exists test passed
+</system-out>
+        </testcase>
+        <testcase name="test_content_addition_various_post_types" class="BDSearch\Tests\AlgoliaRecordTest" classname="BDSearch.Tests.AlgoliaRecordTest" file="/srv/www/algolia-search/tests/AlgoliaRecordTest.php" line="184" assertions="0" time="0.000216">
+          <error type="Patchwork\Exceptions\DefinedTooEarly">BDSearch\Tests\AlgoliaRecordTest::test_content_addition_various_post_types
+Patchwork\Exceptions\DefinedTooEarly: The file that defines get_post_field() was included earlier than Patchwork. Please reverse this order to be able to redefine the function in question.
+
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:167
+/srv/www/algolia-search/vendor/antecedent/patchwork/src/CallRerouting.php:81
+/srv/www/algolia-search/vendor/antecedent/patchwork/Patchwork.php:25
+/srv/www/algolia-search/vendor/brain/monkey/src/Expectation/FunctionStub.php:103
+/srv/www/algolia-search/tests/AlgoliaRecordTest.php:197</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="BDSearch\Tests\SampleTest" file="/srv/www/algolia-search/tests/SampleTest.php" tests="5" assertions="13" errors="0" warnings="0" failures="0" skipped="0" time="0.000584">
+        <testcase name="test_bd324_debug_constant_defined" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/tests/SampleTest.php" line="38" assertions="2" time="0.000119">
+          <system-out>BD324 debug: BD324_DEBUG constant test passed
+</system-out>
+        </testcase>
+        <testcase name="test_plugin_constants_defined" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/tests/SampleTest.php" line="48" assertions="7" time="0.000068">
+          <system-out>BD324 debug: All plugin constants test passed
+</system-out>
+        </testcase>
+        <testcase name="test_bd324_debug_log_function" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/tests/SampleTest.php" line="73" assertions="2" time="0.000078">
+          <system-out>BD324 debug: bd324_debug_log function test passed
+</system-out>
+        </testcase>
+        <testcase name="test_algolia_load_assets_function_exists" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/tests/SampleTest.php" line="91" assertions="1" time="0.000057">
+          <system-out>BD324 debug: algolia_load_assets function exists test passed
+</system-out>
+        </testcase>
+        <testcase name="test_wordpress_hooks" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/tests/SampleTest.php" line="103" assertions="1" time="0.000262">
+          <system-out>BD324 debug: algolia_load_assets execution test passed
+</system-out>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

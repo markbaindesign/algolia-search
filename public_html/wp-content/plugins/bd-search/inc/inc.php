@@ -1,15 +1,15 @@
 <?php
 
 if (!defined('ABSPATH')) {
-   exit('Invalid request, dude.');
+    exit('Invalid request, dude.');
 }
 
 require_once BD616__PLUGIN_DIR . '/vendor/autoload.php';
 
 $includes = [
    ...array_map(
-      fn($path) => BD616__PLUGIN_DIR . $path,
-      [
+       fn ($path) => BD616__PLUGIN_DIR . $path,
+       [
          '/inc/admin/admin.php',
          '/inc/algolia/algolia.php',
          '/inc/scripts/index.php',
@@ -22,5 +22,5 @@ $includes = [
 ];
 
 foreach ($includes as $file) {
-   require_once $file;
+    require_once $file;
 }

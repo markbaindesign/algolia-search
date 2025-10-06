@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="BDSearch\Tests\SampleTest" file="/srv/www/algolia-search/public_html/wp-content/plugins/bd-search/tests/SampleTest.php" tests="5" assertions="13" errors="0" warnings="0" failures="0" skipped="0" time="0.055455">
+    <testcase name="test_bd324_debug_constant_defined" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/public_html/wp-content/plugins/bd-search/tests/SampleTest.php" line="38" assertions="2" time="0.054658">
+      <system-out>BD324 debug: BD324_DEBUG constant test passed
+</system-out>
+    </testcase>
+    <testcase name="test_plugin_constants_defined" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/public_html/wp-content/plugins/bd-search/tests/SampleTest.php" line="48" assertions="7" time="0.000199">
+      <system-out>BD324 debug: All plugin constants test passed
+</system-out>
+    </testcase>
+    <testcase name="test_bd324_debug_log_function" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/public_html/wp-content/plugins/bd-search/tests/SampleTest.php" line="73" assertions="2" time="0.000150">
+      <system-out>BD324 debug: bd324_debug_log function test passed
+</system-out>
+    </testcase>
+    <testcase name="test_algolia_load_assets_function_exists" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/public_html/wp-content/plugins/bd-search/tests/SampleTest.php" line="91" assertions="1" time="0.000116">
+      <system-out>BD324 debug: algolia_load_assets function exists test passed
+</system-out>
+    </testcase>
+    <testcase name="test_wordpress_hooks" class="BDSearch\Tests\SampleTest" classname="BDSearch.Tests.SampleTest" file="/srv/www/algolia-search/public_html/wp-content/plugins/bd-search/tests/SampleTest.php" line="103" assertions="1" time="0.000332">
+      <system-out>BD324 debug: algolia_load_assets execution test passed
+</system-out>
+    </testcase>
+  </testsuite>
+</testsuites>
