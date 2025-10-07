@@ -1,6 +1,6 @@
 # BD Search Plugin
 
-## v2.8.1
+## v2.8.2
 
 ## By Bain Design
 
