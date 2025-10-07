@@ -93,10 +93,10 @@ function bd324_search_admin_page()
    <div class="wrap">
       <h1>Search Admin</h1>
       <p><strong>Algolia Application ID:</strong> <?php echo defined('ALGOLIA_APPLICATION_ID') ? esc_html(ALGOLIA_APPLICATION_ID) : '<em>Not defined</em>'; ?></p>
-      <form method="post">
+<!--       <form method="post">
          <?php wp_nonce_field('bd324_run_function', 'bd324_nonce'); ?>
          <input type="submit" name="bd324_run" class="button button-primary" value="Sync All Indexes">
-      </form>
+      </form> -->
    </div>
    <?php
 
