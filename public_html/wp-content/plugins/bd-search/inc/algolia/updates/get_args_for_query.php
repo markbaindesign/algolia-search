@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-   die('Invalid request, dude!');
+    die('Invalid request, dude!');
 }
 
 /**
@@ -29,65 +29,65 @@ if (!defined('ABSPATH')) {
  * @since 1.0.0
  */
 if (!function_exists('bd324_get_args_for_query')):
-   function bd324_get_args_for_query(
-      $algolia_index_name,
-      $algolia_index_language,
-      $post_types,
-      $post_ids = [],
-      $paged = 1
-   )
-   {
+    function bd324_get_args_for_query(
+        $algolia_index_name,
+        $algolia_index_language,
+        $post_types,
+        $post_ids = [],
+        $paged = 1
+    ) {
 
-      // Set the number of posts per page for the query
-      $posts_per_page = apply_filters(
-         'bd324_filter_posts_per_page',
-         100,
-         $algolia_index_name,
-         $algolia_index_language
-      );
+        // Set the number of posts per page for the query
+        $posts_per_page = apply_filters(
+            'bd324_filter_posts_per_page',
+            100,
+            $algolia_index_name,
+            $algolia_index_language
+        );
 
-      // Set the post status for the query
-      $post_status = apply_filters(
-         'bd324_filter_post_status',
-         'publish',
-         $algolia_index_name,
-         $algolia_index_language
-      );
+        // Set the post status for the query
+        $post_status = apply_filters(
+            'bd324_filter_post_status',
+            'publish',
+            $algolia_index_name,
+            $algolia_index_language
+        );
 
-      // Set whether to include posts with passwords in the query
-      $has_password = apply_filters(
-         'bd324_filter_has_password',
-         false,
-         $algolia_index_name,
-         $algolia_index_language
-      );
+        // Set whether to include posts with passwords in the query
+        $has_password = apply_filters(
+            'bd324_filter_has_password',
+            false,
+            $algolia_index_name,
+            $algolia_index_language
+        );
 
 
-      // Build the query arguments
-      $args = [
-         'posts_per_page' => $posts_per_page,
-         'paged'          => $paged,
-         'post_type'      => $post_types,
-         'post_status'    => $post_status,
-         //'post__in'       => $post_ids,
-         'has_password'   => $has_password,
-      ];
+        // Build the query arguments
+        $args = [
+           'posts_per_page' => $posts_per_page,
+           'algolia_index_query' => true,
+           'paged'          => $paged,
+           'post_type'      => $post_types,
+           'post_status'    => $post_status,
+           //'post__in'       => $post_ids,
+           'has_password'   => $has_password,
+        ];
 
-      /**
-       * Filter args before indexing
-       * @since 1.0.0
-       * @param array $args
-       * @param string $algolia_index_name
-       * @param string $algolia_index_language
-       * @return array $args
-       */
-      $args = apply_filters(
-         'bd324_filter_query_args_for_index_' . $algolia_index_name,
-         $args,
-         $algolia_index_name,
-         $algolia_index_language
-      );
+        /**
+         * Filter args before indexing
+         * @since 1.0.0
+         * @param array $args
+         * @param string $algolia_index_name
+         * @param string $algolia_index_language
+         * @return array $args
+         */
+        $args = apply_filters(
+            'bd324_filter_query_args_for_index_' . $algolia_index_name,
+            $args,
+            $algolia_index_name,
+            $algolia_index_language
+        );
 
-      return $args;
-   }
+        return $args;
+    }
 endif;
