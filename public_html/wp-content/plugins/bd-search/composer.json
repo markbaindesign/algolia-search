@@ -6,6 +6,11 @@
       "phpunit/phpunit": "^9.5",
       "brain/monkey": "^2.6"
    },
+   "autoload-dev": {
+      "psr-4": {
+         "BDSearch\\Tests\\": "tests/"
+      }
+   },
    "scripts": {
       "test": "phpunit"
    }

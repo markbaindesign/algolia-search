@@ -4,6 +4,7 @@
 /node_modules/
 /bower_components/
 /.claude/
+.phpunit.result.cache
 /.sass-cache/
 /import/
 /export/
