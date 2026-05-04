@@ -4,11 +4,14 @@ if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
 
-// Add custom facet processing, field transforms, or record modifications here.
-// Example — strip a character from content before indexing:
-// add_filter('bd_filter_add_field_content', function ($content, WP_Post $post) {
+// Strip or transform content before it is indexed.
+// Runs at priority 15 — after Divi shortcode removal (10) and before truncation (90).
+// add_filter('bd_filter_add_field_content', '__CONST____post_type___filter_content', 15, 2);
+
+// function __CONST____post_type___filter_content($content, WP_Post $post)
+// {
 //     if (get_post_type($post) !== '__post_type__') {
 //         return $content;
 //     }
-//     return str_replace('*', '', $content);
-// }, 10, 2);
+//     return preg_replace('/your pattern here/', '', $content);
+// }
