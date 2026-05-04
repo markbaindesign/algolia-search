@@ -1,7 +1,9 @@
-<?php // 
+<?php
+
+//
 
 if (!defined('ABSPATH')) {
-   die('Invalid request, dude!');
+    die('Invalid request, dude!');
 }
 
 /**
@@ -11,112 +13,224 @@ if (!defined('ABSPATH')) {
  * @param $functionParam       functionDescription
  */
 if (!function_exists('bd324_algolia_update_index')):
-   function bd324_algolia_update_index(
-      $algolia_index_name,
-      $algolia_index_language,
-      $post_types,
-      $post_ids
-   ) {
+    function bd324_algolia_update_index(
+        $algolia_index_name,
+        $algolia_index_language,
+        $post_types,
+        $post_ids
+    ) {
 
-      global $algolia;
-      $update_index = []; // To record the number of records indexed
-      $update_index['count'] = 0;
+        global $algolia;
+        $update_index = []; // To record the number of records indexed
+        $update_index['count'] = 0;
 
-      /**
-       * Get full index name
-       * Includes table prefix & language parameter
-       */
-      $algolia_full_index_name = apply_filters(
-         'bd324_get_full_index_name',
-         $algolia_index_name,
-         $algolia_index_language,
-      );
+        if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+            error_log("BD324 DEBUG: [UPDATE_INDEX] Starting index update - Index: '{$algolia_index_name}', Language: '{$algolia_index_language}'");
+            error_log("BD324 DEBUG: [UPDATE_INDEX] Post types: " . implode(', ', (array) $post_types));
+            if (!empty($post_ids)) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] Specific post IDs: " . implode(', ', (array) $post_ids));
+            }
+        }
 
-      $algoliaIndex = $algolia->initIndex($algolia_full_index_name);
-      $algoliaIndex->clearObjects()->wait();
+        /**
+         * Get full index name
+         * Includes table prefix & language parameter
+         */
+        $algolia_full_index_name = apply_filters(
+            'bd324_get_full_index_name',
+            $algolia_index_name,
+            $algolia_index_language,
+        );
 
-      $paged = 1;
-      $count = 0;
+        if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+            error_log("BD324 DEBUG: [UPDATE_INDEX] Full index name: '{$algolia_full_index_name}'");
+        }
 
-      if (apply_filters('wpml_default_language', NULL) !== NULL) :
-         // Switch language
-         do_action('wpml_switch_language', $algolia_index_language);
-      endif;
+        $algoliaIndex = $algolia->initIndex($algolia_full_index_name);
 
-      do {
+        if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+            error_log("BD324 DEBUG: [UPDATE_INDEX] Clearing existing objects from index");
+        }
 
-         // Get query args
-         if (function_exists('bd324_get_args_for_query')):
-            $args = bd324_get_args_for_query(
-               $algolia_index_name,
-               $algolia_index_language,
-               $post_types,
-               $post_ids,
-               $paged
-            );
-         endif;
+        $algoliaIndex->clearObjects()->wait();
 
-         $posts = new WP_Query($args);
+        $paged = 1;
+        $count = 0;
+        $skipped_posts = 0;
+        $oversized_records = 0;
 
-         if (!$posts->have_posts()) {
-            break;
-         }
+        if (apply_filters('wpml_default_language', null) !== null) :
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] Switching to language: '{$algolia_index_language}'");
+            }
+            // Switch language
+            do_action('wpml_switch_language', $algolia_index_language);
+        endif;
 
-         $records = [];
+        do {
 
-         /* Add posts to records */
-         foreach ($posts->posts as $post) {
-
-            $record = [];
-
-            // Check post is allowed in the index
-            if (!BD616__is_post_allowed($post->ID, get_post_type($post->ID), $algolia_index_name)) {
-               continue;
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] Processing page {$paged}");
             }
 
-            // Convert post data to Algolia record
-            $record = bd324_convert_post_data($post);
+            // Get query args
+            if (function_exists('bd324_get_args_for_query')):
+                $args = bd324_get_args_for_query(
+                    $algolia_index_name,
+                    $algolia_index_language,
+                    $post_types,
+                    $post_ids,
+                    $paged
+                );
+            endif;
 
-            /* Check record size does not exceed Algolia Max Record Size */
-            if (!BD616_check_record_size($record, $post->ID)) {
-               continue;
-            };
+            $posts = new WP_Query($args);
 
+            if (!$posts->have_posts()) {
+                if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                    error_log("BD324 DEBUG: [UPDATE_INDEX] No more posts found on page {$paged}, ending loop");
+                }
+                break;
+            }
 
-            /* Add record to array */
-            $records[] = $record;
-            $count++;
-         }
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] Found " . count($posts->posts) . " posts on page {$paged}");
+            }
 
-         /* Add taxonomies to records */
-         $records = apply_filters(
-            'bd324_filter_add_to_records_tax_terms',
-            $records,
-            $algolia_index_name,
-            $algolia_index_language
-         );
+            $records = [];
 
-         /* Filter records */
-         $records = apply_filters(
-            'bd324_filter_records_before_indexing',
-            $records,
-            $algolia_index_name,
-            $algolia_index_language
-         );
+            /* Add posts to records */
+            foreach ($posts->posts as $post) {
 
-         $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
+                $record = [];
 
-         /* Save records to the index */
-         $algoliaIndex->saveObjects($records);
+                if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                    error_log("BD324 DEBUG: [UPDATE_INDEX] Processing post #{$post->ID} ({$post->post_type}): '{$post->post_title}'");
+                }
 
-         $paged++;
-      } while (true);
+                // Check post is allowed in the index
+                if (!BD616__is_post_allowed($post->ID, get_post_type($post->ID), $algolia_index_name)) {
+                    $skipped_posts++;
+                    if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                        error_log("BD324 DEBUG: [UPDATE_INDEX] Post #{$post->ID} not allowed in index - skipping");
+                    }
+                    continue;
+                }
 
-      // Set settings
-      algolia_index_config($algoliaIndex, $algolia_full_index_name);
-      $update_index['count'] = $count;
-      $update_index['algolia_full_index_name'] = $algolia_full_index_name;
+                // Convert post data to Algolia record
+                $record = bd324_convert_post_data($post);
 
-      return $update_index;
-   }
+                if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                    $record_size = bd324_calculate_record_size($record);
+                    error_log("BD324 DEBUG: [UPDATE_INDEX] Post #{$post->ID} converted to record - Size: {$record_size} bytes, Fields: " . implode(', ', array_keys($record)));
+                }
+
+                /* Add record to array */
+                $records[] = $record;
+                $count++;
+
+                if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                    error_log("BD324 DEBUG: [UPDATE_INDEX] Post #{$post->ID} added to records array (total records: {$count})");
+                }
+            }
+
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] Page {$paged} processed - Records to index: " . count($records));
+            }
+
+            /* Add taxonomies to records */
+            $records_before_tax = count($records);
+            $records = apply_filters(
+                'bd324_filter_add_to_records_tax_terms',
+                $records,
+                $algolia_index_name,
+                $algolia_index_language
+            );
+
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                $records_after_tax = count($records);
+                if ($records_after_tax !== $records_before_tax) {
+                    error_log("BD324 DEBUG: [UPDATE_INDEX] Taxonomy filter changed record count: {$records_before_tax} → {$records_after_tax}");
+                }
+            }
+
+            /* Filter records */
+            $records_before_filter = count($records);
+            $records = apply_filters(
+                'bd324_filter_records_before_indexing',
+                $records,
+                $algolia_index_name,
+                $algolia_index_language
+            );
+
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                $records_after_filter = count($records);
+                if ($records_after_filter !== $records_before_filter) {
+                    error_log("BD324 DEBUG: [UPDATE_INDEX] Pre-indexing filter changed record count: {$records_before_filter} → {$records_after_filter}");
+                }
+            }
+
+            $records = mb_convert_encoding($records, 'UTF-8', 'UTF-8');
+
+            if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] Saving " . count($records) . " records to Algolia index");
+            }
+
+            /* Save records to the index */
+            $algoliaIndex->saveObjects($records);
+
+            $paged++;
+        } while (true);
+
+        if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+            error_log("BD324 DEBUG: [UPDATE_INDEX] Setting index configuration");
+        }
+
+        // Set settings
+        algolia_index_config($algoliaIndex, $algolia_full_index_name);
+
+        $update_index['count'] = $count;
+        $update_index['skipped_posts'] = $skipped_posts;
+        $update_index['oversized_records'] = $oversized_records;
+        $update_index['algolia_full_index_name'] = $algolia_full_index_name;
+
+        // Get truncated posts data
+        $truncated_posts = get_option('bd324_truncated_posts', []);
+        $post_titles = [];
+
+        // Ensure we have an array to work with
+        if (is_array($truncated_posts)) {
+            foreach ($truncated_posts as $key => $truncated_post) {
+                $post = get_post($key);
+                if ($post && isset($post->post_title)) {
+                    $post_titles[] = $post->post_title;
+                }
+            }
+        }
+
+        $update_index['truncated_post_titles'] = $post_titles;
+        $update_index['truncated_posts'] = $truncated_posts;
+
+        if (defined('BD616__PLUGIN_DEBUG') && BD616__PLUGIN_DEBUG === true) {
+            error_log("BD324 DEBUG: [UPDATE_INDEX] Index update completed:");
+            error_log("BD324 DEBUG: [UPDATE_INDEX] - Total records indexed: {$count}");
+            error_log("BD324 DEBUG: [UPDATE_INDEX] - Posts skipped (not allowed): {$skipped_posts}");
+            error_log("BD324 DEBUG: [UPDATE_INDEX] - Records skipped (oversized): {$oversized_records}");
+            error_log("BD324 DEBUG: [UPDATE_INDEX] - Full index name: '{$algolia_full_index_name}'");
+
+            // Safe implode with array check
+            if (!empty($update_index['truncated_post_titles']) && is_array($update_index['truncated_post_titles'])) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] - Truncated posts: '" . implode(", ", $update_index['truncated_post_titles']) . "'");
+            } else {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] - No truncated posts found");
+            }
+
+            // Also log count of truncated posts
+            if (is_array($truncated_posts)) {
+                error_log("BD324 DEBUG: [UPDATE_INDEX] - Total truncated posts: " . count($truncated_posts));
+            }
+        }
+
+        return $update_index;
+    }
 endif;
