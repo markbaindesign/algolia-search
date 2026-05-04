@@ -15,6 +15,11 @@
 - [ ] Add commented `_geoloc` example to `__post_type__/add.php` for projects with a location field
 - [ ] Add commented ACF date → Unix timestamp example to `__post_type__/add.php`
 
+## Admin UX
+
+- [ ] When no indexes are found on the sync screen, show a button to run the initial index for each post type
+  Runs `wp algolia update --index=<type>` (and `--index=global`) via an admin-ajax or REST action. Solves the first-time setup friction where the user has to drop to the CLI to populate indexes.
+
 ## Core plugin (`bd-search`)
 
 - [ ] Expand test coverage to `update_algolia_index.php` and `update_records.php`

@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEMPLATE_DIR="$SCRIPT_DIR/_template"
+BD_SEARCH_SRC="$SCRIPT_DIR/public_html/wp-content/plugins/bd-search"
 
 PREFIX=""
 NAME=""
@@ -108,14 +109,25 @@ find "$PLUGIN_DIR" -type f -name '*.php' | xargs sed -i \
     -e "s|__VERSION__|1.0.0|g"
 
 # -------------------------------------------------------
+# 4. Symlink bd-search (core) into the same plugins directory
+BD_SEARCH_LINK="$DEST/bd-search"
+if [[ -L "$BD_SEARCH_LINK" ]]; then
+    echo "✓ bd-search symlink already exists: $BD_SEARCH_LINK"
+elif [[ -d "$BD_SEARCH_LINK" ]]; then
+    echo "⚠ bd-search already exists as a directory at $BD_SEARCH_LINK — skipping symlink"
+else
+    ln -s "$(realpath --relative-to="$DEST" "$BD_SEARCH_SRC")" "$BD_SEARCH_LINK"
+    echo "✓ Symlinked bd-search → $BD_SEARCH_LINK"
+fi
+
+# -------------------------------------------------------
 echo "✓ Created $PLUGIN_DIR"
 echo ""
 echo "Next steps:"
-echo "  1. Symlink bd-search (core) into the same plugins directory"
-echo "  2. Confirm Algolia keys are in wp-config.php"
-echo "  3. inc/indices/global/settings.php   — update searchableAttributes"
-echo "  4. inc/indices/$POST_TYPE/settings.php — add searchableAttributes + attributesForFaceting"
-echo "  5. inc/post-types/$POST_TYPE/add.php   — wire up taxonomy filters"
-echo "  6. inc/indices/*/scripts.php          — register JS assets"
-echo "  7. Activate both plugins in WordPress admin"
+echo "  1. Confirm Algolia keys are in wp-config.php"
+echo "  2. inc/indices/global/settings.php   — update searchableAttributes"
+echo "  3. inc/indices/$POST_TYPE/settings.php — add searchableAttributes + attributesForFaceting"
+echo "  4. inc/post-types/$POST_TYPE/add.php   — wire up taxonomy filters"
+echo "  5. inc/indices/*/scripts.php          — register JS assets"
+echo "  6. Activate both plugins in WordPress admin"
 echo ""

@@ -28,8 +28,15 @@ add_filter(
 function __CONST____post_type___facet_attributes()
 {
     return [
-        // 'filterOnly(my_taxonomy)',
-        // 'searchable(my_taxonomy)',
+        // Flat taxonomies are stored as objects {display, name} — use the .display path:
+        // 'my_taxonomy.display',
+        //
+        // Plain scalar fields (integers, strings) use the key directly:
+        // 'my_year_field',
+        //
+        // filterOnly() hides the facet from counts — only use it for invisible server-side filters,
+        // NOT for any facet you want to display via a refinementList widget:
+        // 'filterOnly(my_taxonomy.display)',
     ];
 }
 

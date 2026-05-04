@@ -6,5 +6,5 @@ if (!defined('ABSPATH')) {
 
 // Fallback thumbnail shown when a post has no featured image.
 add_filter('bd324_filter_thumbnail_fallback_url', function ($image_url, WP_Post $post) {
-    return __CONST__IMAGES_URL . '/fallback.jpg';
+    return __CONST__IMAGES_URL . '/fallback.svg';
 }, 10, 2);
