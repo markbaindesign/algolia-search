@@ -39,3 +39,6 @@ require_once $plugin . '/algolia/al-helpers/bd324_algolia_get_full_index_name.ph
 require_once $plugin . '/algolia/al-filters/bd324_add_table_prefix_to_index_name.php';
 require_once $plugin . '/algolia/updates/get_args_for_query.php';
 require_once $plugin . '/algolia/al-records/algolia_add_search_priority_to_record.php';
+require_once $plugin . '/algolia/al-helpers/bd324_get_record_index_names.php';
+require_once $plugin . '/algolia/updates/update_algolia_record.php';
+require_once $plugin . '/algolia/al-wp-cli/al-update-command.php';
