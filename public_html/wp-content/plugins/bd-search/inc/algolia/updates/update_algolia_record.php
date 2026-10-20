@@ -56,4 +56,6 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
 
     return !$remove && !empty($index_names);
 }
-add_action('save_post', 'bd324_update_algolia_record', 10, 3);
+// After the post is fully saved: WPML sets a new post's language on save_post at
+// priority 100, and meta/terms (e.g. ACF fields) are saved by then too.
+add_action('wp_after_insert_post', 'bd324_update_algolia_record', 1000, 2);
