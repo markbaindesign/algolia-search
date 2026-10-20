@@ -2,6 +2,7 @@
 
 namespace BDSearch\Tests\Unit;
 
+use Brain\Monkey\Actions;
 use Brain\Monkey\Functions;
 use Mockery;
 
@@ -192,6 +193,43 @@ class RecordUpdateTest extends BaseTestCase
 
         $this->assertSame(1, $count);
         $this->assertSame(['wp_global_chs' => ['save']], $this->calls);
+    }
+
+    public function test_language_is_switched_per_post_and_restored(): void
+    {
+        Functions\expect('bd324_algolia_update_index')->never();
+        Functions\when('get_post')->alias(fn($id) => new \WP_Post(['ID' => $id]));
+        $this->useWpml('en', [1 => 'chs', 2 => 'cht']);
+        $this->filters['wpml_current_language'] = fn() => 'en';
+
+        $switched = [];
+        Actions\expectDone('wpml_switch_language')->times(3)->whenHappen(function ($lang) use (&$switched) {
+            $switched[] = $lang;
+        });
+
+        bd324_algolia_update_command('global', '1,2');
+
+        $this->assertSame(['chs', 'cht', 'en'], $switched);
+        $this->assertSame(['wp_global_chs' => ['save'], 'wp_global_cht' => ['save']], $this->calls);
+    }
+
+    public function test_language_is_not_switched_without_wpml(): void
+    {
+        Functions\expect('bd324_algolia_update_index')->never();
+        Functions\when('get_post')->alias(fn($id) => new \WP_Post(['ID' => $id]));
+        Actions\expectDone('wpml_switch_language')->never();
+
+        $this->assertSame(1, bd324_algolia_update_command('global', '1'));
+    }
+
+    public function test_revisions_are_not_counted(): void
+    {
+        Functions\expect('bd324_algolia_update_index')->never();
+        Functions\when('get_post')->alias(fn($id) => new \WP_Post(['ID' => $id]));
+        Functions\when('wp_is_post_revision')->justReturn(true);
+
+        $this->assertSame(0, bd324_algolia_update_command('global', '1'));
+        $this->assertSame([], $this->calls);
     }
 
     public function test_missing_posts_are_skipped(): void

@@ -44,6 +44,9 @@ function bd324_algolia_cli_message($type, $message)
  * Each post is saved to (or removed from) every index it belongs in, in its
  * own language. Nothing is cleared or re-indexed.
  *
+ * On WPML sites, the language is switched to each post's own before its
+ * record is built (as the full index does), then restored.
+ *
  * @param int[]       $post_ids
  * @param string|null $lang     If set, only posts in this WPML language are updated
  * @return int Number of records saved
@@ -51,6 +54,7 @@ function bd324_algolia_cli_message($type, $message)
 function bd324_algolia_update_posts($post_ids, $lang = null)
 {
    $count = 0;
+   $current_lang = apply_filters('wpml_current_language', null);
 
    foreach ($post_ids as $post_id) {
       $post = get_post($post_id);
@@ -60,19 +64,32 @@ function bd324_algolia_update_posts($post_ids, $lang = null)
          continue;
       }
 
+      $post_lang = bd324_get_post_language_code($post_id);
+
       if ($lang) {
-         $post_lang = bd324_get_post_language_code($post_id);
          if ($post_lang !== '' && $post_lang !== $lang) {
             bd324_algolia_cli_message('warning', "Post #{$post_id} is in '{$post_lang}', not '{$lang}', skipped.");
             continue;
          }
       }
 
-      if (bd324_update_algolia_record($post_id, $post)) {
-         $count++;
-      } else {
-         bd324_algolia_cli_message('log', "Post #{$post_id} is not published, removed from its indices.");
+      if ($post_lang !== '') {
+         do_action('wpml_switch_language', $post_lang);
       }
+
+      $update = bd324_update_algolia_record($post_id, $post);
+
+      if ($update) {
+         $count++;
+      } elseif ($update === false) {
+         bd324_algolia_cli_message('log', "Post #{$post_id} is not published, removed from its indices.");
+      } else {
+         bd324_algolia_cli_message('warning', "Post #{$post_id} is a revision or autosave, skipped.");
+      }
+   }
+
+   if ($current_lang !== null) {
+      do_action('wpml_switch_language', $current_lang);
    }
 
    bd324_algolia_cli_message($count > 0 ? 'success' : 'warning', "{$count} record(s) updated.");
