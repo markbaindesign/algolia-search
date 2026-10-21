@@ -34,34 +34,28 @@ function bd324_update_algolia_record($post_id, WP_Post $post)
     // Convert post data to Algolia record
     $record = bd324_convert_post_data($post);
 
-    // Get an array of index names
-    // ***************************
-    // Add filter to include project-specific
-    // index names.
-    $index_names = apply_filters(
-        'bd324_filter_index_names',
-        array('global'), // Default
-        $post_type
-    );
+    // Full index names (prefix + language suffix), from `bd324_filter_index_names`
+    $index_names = bd324_get_record_index_names($post_id, $post_type);
+
+    // Remove any drafts or password-protected posts from the index
+    $remove = 'publish' !== $post_status || !empty($post->post_password);
 
     /**
-     * Loop over the array of indices
+     * Update the record in every index it belongs in
      */
-    foreach ($index_names as $name) {
-
-        // Get the full name of the index (with prefix)
-        $nameFull = apply_filters('bd324_filter_index_name', $name);
+    foreach ($index_names as $nameFull) {
 
         $index = $algolia->initIndex($nameFull);
 
-        // Remove any drafts or password-protected posts from the index
-        if ('publish' !== $post_status || !empty($post->post_password)) {
+        if ($remove) {
             $index->deleteObject($record['objectID']);
-            return false;
         } else {
             $index->saveObject($record);
-            return true;
         }
     }
+
+    return !$remove && !empty($index_names);
 }
-add_action('save_post', 'bd324_update_algolia_record', 10, 3);
+// After the post is fully saved: WPML sets a new post's language on save_post at
+// priority 100, and meta/terms (e.g. ACF fields) are saved by then too.
+add_action('wp_after_insert_post', 'bd324_update_algolia_record', 1000, 2);

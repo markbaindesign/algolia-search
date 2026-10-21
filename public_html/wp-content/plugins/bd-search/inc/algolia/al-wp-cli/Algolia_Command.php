@@ -12,10 +12,15 @@ class Algolia_Command
    public function update($args, $assoc_args)
    {
       $index = isset($assoc_args['index']) ? $assoc_args['index'] : 'global';
-      $post_ids = isset($assoc_args['post_ids']) ? explode(',', $assoc_args['post_ids']) : [];
+      // Passed through as given; bd324_algolia_update_command() parses it
+      $post_ids = isset($assoc_args['post_ids']) ? $assoc_args['post_ids'] : [];
       $verbose = isset($assoc_args['verbose']) ? filter_var($assoc_args['verbose'], FILTER_VALIDATE_BOOLEAN) : null;
       $lang = isset($assoc_args['lang']) ? $assoc_args['lang'] : null;
       
+      if (isset($assoc_args['post_ids'], $assoc_args['index'])) {
+         WP_CLI::warning('--index is ignored with --post_ids: each post is updated in every index it belongs in.');
+      }
+
       bd324_algolia_update_command($index, $post_ids, $verbose, $lang);
    }
 

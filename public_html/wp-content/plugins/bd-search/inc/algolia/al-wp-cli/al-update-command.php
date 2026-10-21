@@ -4,6 +4,99 @@ if (!defined('ABSPATH')) {
    die('Invalid request, dude!');
 }
 
+/**
+ * Parse post IDs
+ *
+ * Accepts a comma-separated string ('1, 2,3') or an array of IDs.
+ *
+ * @param string|array $post_ids
+ * @return int[] Unique, positive post IDs
+ */
+function bd324_parse_post_ids($post_ids)
+{
+   if (is_string($post_ids)) {
+      $post_ids = explode(',', $post_ids);
+   }
+   if (!is_array($post_ids)) {
+      return [];
+   }
+
+   $post_ids = array_map('trim', array_map('strval', $post_ids));
+   $post_ids = array_filter($post_ids, 'ctype_digit');
+   $post_ids = array_filter(array_map('intval', $post_ids));
+
+   return array_values(array_unique($post_ids));
+}
+
+/**
+ * Write a WP-CLI message (no-op outside WP-CLI, e.g. the admin screen)
+ */
+function bd324_algolia_cli_message($type, $message)
+{
+   if (defined('WP_CLI') && WP_CLI) {
+      WP_CLI::$type($message);
+   }
+}
+
+/**
+ * Update the records for specific posts
+ *
+ * Each post is saved to (or removed from) every index it belongs in, in its
+ * own language. Nothing is cleared or re-indexed.
+ *
+ * On WPML sites, the language is switched to each post's own before its
+ * record is built (as the full index does), then restored.
+ *
+ * @param int[]       $post_ids
+ * @param string|null $lang     If set, only posts in this WPML language are updated
+ * @return int Number of records saved
+ */
+function bd324_algolia_update_posts($post_ids, $lang = null)
+{
+   $count = 0;
+   $current_lang = apply_filters('wpml_current_language', null);
+
+   foreach ($post_ids as $post_id) {
+      $post = get_post($post_id);
+
+      if (!($post instanceof WP_Post)) {
+         bd324_algolia_cli_message('warning', "Post #{$post_id} not found, skipped.");
+         continue;
+      }
+
+      $post_lang = bd324_get_post_language_code($post_id);
+
+      if ($lang) {
+         if ($post_lang !== '' && $post_lang !== $lang) {
+            bd324_algolia_cli_message('warning', "Post #{$post_id} is in '{$post_lang}', not '{$lang}', skipped.");
+            continue;
+         }
+      }
+
+      if ($post_lang !== '') {
+         do_action('wpml_switch_language', $post_lang);
+      }
+
+      $update = bd324_update_algolia_record($post_id, $post);
+
+      if ($update) {
+         $count++;
+      } elseif ($update === false) {
+         bd324_algolia_cli_message('log', "Post #{$post_id} is not published, removed from its indices.");
+      } else {
+         bd324_algolia_cli_message('warning', "Post #{$post_id} is a revision or autosave, skipped.");
+      }
+   }
+
+   if ($current_lang !== null) {
+      do_action('wpml_switch_language', $current_lang);
+   }
+
+   bd324_algolia_cli_message($count > 0 ? 'success' : 'warning', "{$count} record(s) updated.");
+
+   return $count;
+}
+
 function bd324_algolia_update_command($index = 'global', $post_ids = [], $verbose = null, $lang = null)
 {
    /**
@@ -13,48 +106,32 @@ function bd324_algolia_update_command($index = 'global', $post_ids = [], $verbos
     * Each language has its own index.
     * Pass the $lang and $index params e.g. --lang=chs
     *
+    * With $post_ids (e.g. --post_ids=1,2,3), only those records are updated
+    * and the index is not cleared.
+    *
     */
 
    // Vars
    $algolia_index_name = $index;
    $algolia_index_language = $lang;
-   $algolia_post_ids = [];
-
-   // Get Post IDs to index
-   if (!empty($post_ids) && is_string($post_ids)) :
-      $post_ids = trim($post_ids);
-      $algolia_post_ids = explode(',', $post_ids);
-      $algolia_post_ids = array_map('trim', $algolia_post_ids);
-      $algolia_post_ids = array_filter($algolia_post_ids, 'is_numeric');
-      $algolia_post_ids = array_map('intval', $algolia_post_ids);
-   endif;
 
    /**
     * POSTS
     * 
     * Update Algolia index for specific post IDs.
+    * Returns before the full re-index below, which clears the index first.
     */
-   if (!empty($algolia_post_ids)) {
-      // Loop through each post ID and update the Algolia record
-      $update_index = []; // To record the number of records indexed
-      $update_index['count'] = 0;
-      foreach ($algolia_post_ids as $post_id) {
-         $post = get_post($post_id);
-         if ($post instanceof WP_Post) {
-            $update = bd324_update_algolia_record($post_id, $post);
-            if ($update) {
-               $update_index['count']++;
-            }
-         }
+   // Any given value counts, so `--post_ids=` or a bare `--post_ids` errors
+   // instead of falling through to a full re-index.
+   if ($post_ids !== [] && $post_ids !== null) {
+      $algolia_post_ids = bd324_parse_post_ids($post_ids);
+
+      if (empty($algolia_post_ids)) {
+         bd324_algolia_cli_message('error', 'No valid post IDs given, e.g. --post_ids=1,2,3');
+         return 0;
       }
-      // $count_display = WP_CLI::colorize("%B" . $update_index['count'] . "%n");
-      if ($update_index['count'] === 0) {
-         // WP_CLI::warning("$count_display entries reindexed ");
-      } elseif ($update_index['count'] === 1) {
-         // WP_CLI::success("$count_display entry reindexed ");
-      } else {
-         // WP_CLI::success("$count_display entries reindexed");
-      }
+
+      return bd324_algolia_update_posts($algolia_post_ids, $algolia_index_language);
    }
 
    /**

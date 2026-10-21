@@ -97,3 +97,6 @@ $RECYCLE.BIN/
 *__xx
 *__xxx
 *__xxxx
+# Asana mirror (rewritten by bain-studio sync.py on every run)
+/asana-mirror.md
+/asana-ids.json
