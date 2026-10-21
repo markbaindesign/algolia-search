@@ -1,6 +1,6 @@
 # BD Search Plugin
 
-## v2.9.0
+## v2.9.1
 
 ## By Bain Design
 
@@ -108,6 +108,12 @@ e.g. `wp algolia update --index=my-custom-index`
 To reindex a non-English index, add the `--lang` argument:
 
 e.g. `wp algolia update --lang=cht`
+
+To update specific posts only, add the `--post_ids` argument:
+
+e.g. `wp algolia update --post_ids=123,456`
+
+Each post is saved to every index it belongs in (from `bd324_filter_index_names`), in its own WPML language, and nothing is cleared or re-indexed. Unpublished posts are removed from those indices. `--index` is ignored. `--lang` only updates posts in that language and skips the rest.
 
 ## Filters
 

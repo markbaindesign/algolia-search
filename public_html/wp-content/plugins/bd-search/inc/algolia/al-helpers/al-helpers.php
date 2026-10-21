@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/algolia_post_index_name.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/bd324_algolia_get_full_index_name.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/bd324_get_algolia_index_name.php';
+require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/bd324_get_record_index_names.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/bd324_get_post_types_for_index.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/bd324_get_taxonomies_for_index.php';
 require_once BD616__PLUGIN_DIR . '/inc/algolia/al-helpers/get_algolia_indexName.php';
